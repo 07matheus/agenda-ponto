@@ -89,6 +89,7 @@ class Cadastro extends Controller {
    */
   public function view(): Cadastro {
     $this->setPathView('paginas/usuario/cadastro');
+    $this->dataOthers = ['local' => 'cadastro'];
     return $this;
   }
 }

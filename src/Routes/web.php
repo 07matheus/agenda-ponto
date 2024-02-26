@@ -2,6 +2,7 @@
 
 use AgendaPonto\Controllers\Dashboard\Listagem as MinhasTarefas;
 use AgendaPonto\Controllers\Usuario\Cadastro as CadastroUsuario;
+use AgendaPonto\Controllers\Usuario\Editar as EditarUsuario;
 use AgendaPonto\Controllers\Usuario\Login as LoginUsuario;
 use AgendaPonto\Controllers\Tarefas\Cadastro as CadastroTarefa;
 use AgendaPonto\Controllers\Tarefas\Editar as EditarTarefa;
@@ -38,6 +39,12 @@ $route->post('/entrar', function(Request $request, Response $response) use ($rou
 $route->group('/usuario', function(RouteCollectorProxyInterface $group) {
   $group->get('/cadastro', function(Request $request, Response $response) {
     return (new CadastroUsuario($response))->view()->getRenderResponse(new UsuarioDTO);
+  });
+
+  $group->get('/editar', function(Request $request, Response $response) {
+    $obController = new EditarUsuario($response, $request);
+    
+    return $obController->view()->getRenderResponse();
   });
   
   $group->post('/cadastro', function(Request $request, Response $response) {

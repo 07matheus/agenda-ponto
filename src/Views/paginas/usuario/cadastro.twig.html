@@ -5,10 +5,10 @@
 {% block body %}
   {{ response }}
 
-  <form action="/usuario/cadastro" method="post">
+  <form action="/usuario/{{local}}" method="post">
     <div>
       <label for="nome">Nome:</label>
-      <input type="text" name="nome" id="nome">
+      <input type="text" name="nome" id="nome" value="{{nome}}">
     </div>
 
     <br>
@@ -16,11 +16,30 @@
 
     <div>
       <label for="email">E-mail:</label>
-      <input type="email" name="email" id="email">
+      <input type="email" name="email" id="email" value="{{email}}">
     </div>
 
     <br>
     <br>
+
+    {% if local == 'editar' %}
+      <div>
+        <label>Alterar senha</label>
+        
+        <div>
+          <label for="alterarSenhaSim">Sim</label>
+          <input type="radio" name="alterarSenha" value="s" id="alterarSenhaSim">
+        </div>
+
+        <div>
+          <label for="alterarSenhaNao">Não</label>
+          <input type="radio" name="alterarSenha" value="n" id="alterarSenhaNao" checked>
+        </div>
+      </div>
+
+      <br>
+      <br>
+    {% endif %}
 
     <div>
       <label for="senha">Senha:</label>
