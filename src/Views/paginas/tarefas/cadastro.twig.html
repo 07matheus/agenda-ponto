@@ -10,7 +10,7 @@
   <form action="/tarefas/cadastro" method="post">
     <div>
       <label for="nome">Nome da tarefa</label>
-      <input type="text" name="nome" id="nome">
+      <input type="text" name="nome" id="nome" value="{{ nome }}">
     </div>
 
     <br>
@@ -18,7 +18,7 @@
 
     <div>
       <label for="dataVencimento">Data de vencimento</label>
-      <input type="date" name="dataVencimento" id="dataVencimento">
+      <input type="date" name="dataVencimento" id="dataVencimento" value="{{ dataVencimento }}">
     </div>
 
     <br>
@@ -29,17 +29,17 @@
       
       <div>
         <label for="prioridadeBaixa">Baixa</label>
-        <input type="radio" name="prioridade" value="baixa" id="prioridadeBaixa">
+        <input type="radio" name="prioridade" value="baixa" id="prioridadeBaixa" {{ checkedPrioridadeBaixa }}>
       </div>
 
       <div>
         <label for="prioridadeMedia">Média</label>
-        <input type="radio" name="prioridade" value="media" id="prioridadeMedia">
+        <input type="radio" name="prioridade" value="media" id="prioridadeMedia" {{ checkedPrioridadeMedia }}>
       </div>
 
       <div>
         <label for="prioridadeAlta">Alta</label>
-        <input type="radio" name="prioridade" value="alta" id="prioridadeAlta">
+        <input type="radio" name="prioridade" value="alta" id="prioridadeAlta" {{ checkedPrioridadeAlta }}>
       </div>
     </div>
 
@@ -48,7 +48,7 @@
 
     <div>
       <label for="descricao">Descrição</label>
-      <textarea name="descricao" id="descricao" cols="30" rows="10"></textarea>
+      <textarea name="descricao" id="descricao" cols="30" rows="10">{{ descricao }}</textarea>
     </div>
 
     <br>
@@ -60,12 +60,12 @@
         
         <div>
           <label for="concluirSim">Sim</label>
-          <input type="radio" name="concluir" value="s" id="concluirSim">
+          <input type="radio" name="concluir" value="s" id="concluirSim" {{ checkedConcluida }}>
         </div>
 
         <div>
           <label for="concluirNao">Não</label>
-          <input type="radio" name="concluir" value="n" id="concluirNao">
+          <input type="radio" name="concluir" value="n" id="concluirNao" {{ checkedNaoConcluida }}>
         </div>
       </div>
 

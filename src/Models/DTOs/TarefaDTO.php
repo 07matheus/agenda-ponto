@@ -8,18 +8,18 @@ class TarefaDTO extends ModeloDTO {
   protected $nome;
   protected $prioridade;
   protected $descricao;
-  protected $dataCriacao;
+  protected $dataVencimento;
   protected $concluida;
 
   public function getProperties(): array {
     return [
-      'id'          => 'id',
-      'idUsuario'   => 'id_usuario',
-      'nome'        => 'nome',
-      'prioridade'  => 'prioridade',
-      'descricao'   => 'descricao',
-      'dataCriacao' => 'data_criacao',
-      'concluida'   => 'concluida'
+      'id'             => 'id',
+      'idUsuario'      => 'id_usuario',
+      'nome'           => 'nome',
+      'prioridade'     => 'prioridade',
+      'descricao'      => 'descricao',
+      'dataVencimento' => 'data_vencimento',
+      'concluida'      => 'concluida'
     ];
   }
 }

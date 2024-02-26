@@ -8,6 +8,7 @@ use AgendaPonto\Controllers\Tarefas\Editar as EditarTarefa;
 use AgendaPonto\Models\DTOs\UsuarioDTO;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Exception\HttpNotFoundException;
 use Slim\Interfaces\RouteCollectorProxyInterface;
 
 $request  = Request::class;
@@ -53,7 +54,14 @@ $route->group('/tarefas', function(RouteCollectorProxyInterface $group) {
   });
   
   $group->get('/ver[/{id}]', function(Request $request, Response $response, array $arguments) {
-    return (new EditarTarefa($response))->view()->getRenderResponse();
+    if(!is_numeric(($arguments['id'] ?? null))) {
+      throw new HttpNotFoundException($request, "Tarefa não encontrada");
+    }
+
+    $obController = new EditarTarefa($response, $request);
+    $obController->setRequestParams($arguments);
+
+    return $obController->view()->getRenderResponse();
   });
 });
 // ROTAS DO SISTEMA

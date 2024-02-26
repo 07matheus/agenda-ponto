@@ -3,7 +3,7 @@
 namespace AgendaPonto\Controllers;
 
 use AgendaPonto\Models\DTOs\ModeloDTO;
-use Slim\Psr7\Response;
+use Slim\Psr7\{Request, Response};
 
 abstract class Controller {
   protected $status;
@@ -11,12 +11,15 @@ abstract class Controller {
   protected $pathView;
 
   protected array $dataOthers = [];
+  protected array $requestParams = [];
   
   private $redirectTo;
   private $slimrResponse;
+  private $slimRequest;
 
-  public function __construct(Response $response) {
+  public function __construct(Response $response, Request $request = null) {
     $this->slimrResponse = $response;
+    $this->slimRequest   = $request;
   }
 
   abstract protected function validarTamanhoCampo($campo, $valorCampo): void;
@@ -62,8 +65,17 @@ abstract class Controller {
     return $this;
   }
 
+  public function setRequestParams(array $params = []): Controller {
+    $this->requestParams = $params;
+    return $this;
+  }
+
   protected function getResponse() {
     return $this->response;
+  }
+
+  protected function getSlimRequest(): Request {
+    return $this->slimRequest;
   }
 
   public function save($obDto): Controller {
