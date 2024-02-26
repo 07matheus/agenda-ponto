@@ -1,0 +1,37 @@
+{% extends 'app.twig.html' %}
+
+{% block titlePage %}Minhas tarefas{% endblock %}
+
+{% block body %}
+  <h1>Olá</h1>
+  <h3>{{nomeUsuario}}</h3>
+
+  <div>
+    <a href="/usuario/editar">Perfil</a>
+  </div>
+
+  <div>
+    <a href="/tarefas/cadastrar">Nova Tarefa</a>
+  </div>
+
+  <br>
+
+  <div>
+    <b>Quantidade de tarefas:</b>
+    {{ dadosTarefas|length }}
+  </div>
+
+  {% if dadosTarefas|length > 0 %}
+    <ul>
+      {% for tarefa in dadosTarefas %}
+        <li>
+          <spn>{{ tarefa.nome }}</spn>
+          
+          <a href="/tarefas/ver/{{ tarefa.id }}">Editar</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <h4>Você não possui nenhuma tarefa cadastrada!</h4>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'app.twig.html' %}
+
+{% block titlePage %}Não encontrado{% endblock %}
+
+{% block body %}
+  <h1>Página não encontrada!</h1>
+
+  {% if debugOn %}
+
+    <ul>
+      {% for trace in traces %}
+        <li>
+          <b>Local:</b> {{trace.file}}:{{trace.line}}
+          <br>
+          <b>Função:</b> {{trace.class}}{{trace.type}}{{trace.function}}
+        </li>
+        <br>
+        <br>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

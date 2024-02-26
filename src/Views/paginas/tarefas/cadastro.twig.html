@@ -1,0 +1,78 @@
+{% extends 'app.twig.html' %}
+
+{% block titlePage %}Nova tarefa{% endblock %}
+
+{% block body %}
+  {{ response }}
+
+  <h1>{{ tituloFormulario }}</h1>
+
+  <form action="/tarefas/cadastro" method="post">
+    <div>
+      <label for="nome">Nome da tarefa</label>
+      <input type="text" name="nome" id="nome">
+    </div>
+
+    <br>
+    <br>
+
+    <div>
+      <label for="dataVencimento">Data de vencimento</label>
+      <input type="date" name="dataVencimento" id="dataVencimento">
+    </div>
+
+    <br>
+    <br>
+
+    <div>
+      <label>Prioridade</label>
+      
+      <div>
+        <label for="prioridadeBaixa">Baixa</label>
+        <input type="radio" name="prioridade" value="baixa" id="prioridadeBaixa">
+      </div>
+
+      <div>
+        <label for="prioridadeMedia">Média</label>
+        <input type="radio" name="prioridade" value="media" id="prioridadeMedia">
+      </div>
+
+      <div>
+        <label for="prioridadeAlta">Alta</label>
+        <input type="radio" name="prioridade" value="alta" id="prioridadeAlta">
+      </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div>
+      <label for="descricao">Descrição</label>
+      <textarea name="descricao" id="descricao" cols="30" rows="10"></textarea>
+    </div>
+
+    <br>
+    <br>
+
+    {% if isAtualizacao %}
+      <div>
+        <label>Concluir tarefa</label>
+        
+        <div>
+          <label for="concluirSim">Sim</label>
+          <input type="radio" name="concluir" value="s" id="concluirSim">
+        </div>
+
+        <div>
+          <label for="concluirNao">Não</label>
+          <input type="radio" name="concluir" value="n" id="concluirNao">
+        </div>
+      </div>
+
+      <br>
+      <br>
+    {% endif %}
+
+    <button type="submit">{{ nomeBotaoFormulario }}</button>
+  </form>
+{% endblock %}
