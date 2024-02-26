@@ -1,6 +1,6 @@
 ## AgendaPonto
 
-# Projeto para um simples gerenciador de tarefas
+#### Projeto para um simples gerenciador de tarefas
 
 ## Requisitos
 * Linux
