@@ -62,7 +62,11 @@ class Login extends Controller {
     $obUsuarioDTO->set('senha', md5($obUsuarioDTO->senha));
 
     // VERIFICA SE O USUÁRIO INFORMADO PUSSUI LOGIN
-    $obUsuario = Usuario::where('email', '=', "{$obUsuarioDTO->email}", 'AND', 'senha', '=', "{$obUsuarioDTO->senha}")->first();
+    $condicoes = [
+      ['email', '=', $obUsuarioDTO->email],
+      ['senha', '=', $obUsuarioDTO->senha]
+    ];
+    $obUsuario = Usuario::where($condicoes)->first();
     if(!$obUsuario instanceof Usuario) {
       $this->status   = false;
       $this->response = 'O usuário ou senha incorretos.';
