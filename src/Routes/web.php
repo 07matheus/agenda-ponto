@@ -47,6 +47,13 @@ $route->group('/usuario', function(RouteCollectorProxyInterface $group) {
     return $obController->view()->getRenderResponse();
   });
   
+  $group->post('/editar', function(Request $request, Response $response) {
+    $obUsuarioDTO = (new UsuarioDTO)->setDados($request->getParsedBody(), true, true);
+    $obController = new EditarUsuario($response);
+
+    return $obController->update($obUsuarioDTO)->getRenderResponse($obUsuarioDTO);
+  });
+  
   $group->post('/cadastro', function(Request $request, Response $response) {
     $dtoUsuario   = (new UsuarioDTO)->setDados($request->getParsedBody());
     $obController = new CadastroUsuario($response);

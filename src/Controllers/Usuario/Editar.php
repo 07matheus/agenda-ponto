@@ -57,4 +57,64 @@ class Editar extends Controller {
 
     return $this;
   }
+
+  public function update($obUsuarioDTO): Editar {
+    // DADOS DE EXIBIÇÃO DA PÁGINA
+    $this->setPathView('paginas/usuario/cadastro');
+    $this->dataOthers = [
+      'local'                  => 'editar',
+      'tituloEspecificoPagina' => 'Editar'
+    ];
+
+    // VERIFICA SE O USUÁRIO ESTÁ LOGADO
+    if(!(isset($usuario['id']) && is_numeric($usuario['id']))) {
+      throw new HttpNotFoundException(
+        $this->getSlimRequest(),
+        'Você não tem permissão para realizar essa ação'
+      );
+    }
+
+    // PEGA OS DADOS DO USUÁRIO NA SESSÃO
+    $obSessao = new Session;
+    $usuario  = $obSessao->get(['usuario']);
+
+    // VALIDAÇÕES DOS CAMPOS ENVIADOS PELO USUÁRIO
+    $this->validarTamanhoCampo('email', $obUsuarioDTO->email);
+    $this->validarTamanhoCampo('nome', $obUsuarioDTO->nome);
+
+    // VERIFICA SE IRÁ VALIDAR A SENHA
+    $alterarSenha = $obUsuarioDTO->alterarSenha == 's';
+    if($alterarSenha) {
+      $this->validarTamanhoCampo('senha', $obUsuarioDTO->senha);
+      $obUsuarioDTO->set('senha', md5($obUsuarioDTO->senha));
+    }
+
+    // REALIZA A ATUALIZAÇÃO DOS DADOS DO USUÁRIO
+    if($this->status) {
+      $dadosAtualizar = [
+        'email' => $obUsuarioDTO->email,
+        'nome'  => $obUsuarioDTO->nome
+      ];
+
+      if($alterarSenha) $dadosAtualizar['senha'] = $obUsuarioDTO->senha;
+      
+      // SALVA OS DADOS
+      $sucesso         = (Usuario::where('id', $usuario['id'])->update($dadosAtualizar) > 0);
+      $mensagemSucesso = 'Dados alterados com sucesso!';
+      $mensagemErro    = 'Não foi possível atualizar os seus dados. Tente novamente mais tarde.';
+
+      // ALTERA OS DADOS DE RESPOSTA
+      $this->status = $sucesso;
+      $this->response = $sucesso ? $mensagemSucesso: $mensagemErro;
+
+      // ATUALIZA OS DADOS NA SESSÃO
+      if($sucesso) $obSessao->set(['usuario'], [
+        'id'    => $usuario['id'],
+        'email' => $obUsuarioDTO->email,
+        'nome'  => $obUsuarioDTO->nome
+      ]);
+    }
+
+    return $this;
+  }
 }

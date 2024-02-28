@@ -11,11 +11,13 @@ abstract class ModeloDTO {
 
   /**
    * Grava os dados na classe instanciada
-   * @param  array      $dados      Dados que serão inseridos
+   * @param  array      $dados                  Dados que serão inseridos
+   * @param  bool       $fromPropertyClass      Define se os dados recebidos estão no formato da classe ou do banco
+   * @param  bool       $force                  Força a inclusão de um parâmetro que não existe
    * @return ModeloDTO
    */
-  public function setDados(array $dados = [], bool $fromPropertyClass = true): ModeloDTO {
-    foreach($dados as $property => $value) $this->set($property, $value, $fromPropertyClass);
+  public function setDados(array $dados = [], bool $fromPropertyClass = true, bool $force = false): ModeloDTO {
+    foreach($dados as $property => $value) $this->set($property, $value, $fromPropertyClass, $force);
 
     return $this;
   }
@@ -25,9 +27,10 @@ abstract class ModeloDTO {
    * @param  string       $property                Propriedade do DTO
    * @param  mixed        $value                   Valor da propriedade
    * @param  bool         $fromPropertyClass       Define se os dados que serão salvos estão no padrão da classe ou do banco
+   * @param  bool         $force                   Força a inclusão de um parâmetro que não existe
    * @return ModeloDTO
    */
-  public function set(string $property, mixed $value, bool $fromPropertyClass = true): ModeloDTO {
+  public function set(string $property, mixed $value, bool $fromPropertyClass = true, bool $force = false): ModeloDTO {
     $propertiesFromClass = array_keys($this->getProperties());
     $propertiesFromDB    = array_values($this->getProperties());
     $properties = $fromPropertyClass ? $propertiesFromClass: $propertiesFromDB;
@@ -37,6 +40,8 @@ abstract class ModeloDTO {
       $auxProperty          = $propertiesFromClass[$indexProperty];
       $this->{$auxProperty} = $value;
     }
+
+    if($force) $this->{$property} = $value;
 
     return $this;
   }

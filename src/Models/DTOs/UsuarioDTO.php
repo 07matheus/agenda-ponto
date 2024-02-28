@@ -2,6 +2,7 @@
 
 namespace AgendaPonto\Models\DTOs;
 
+#[\AllowDynamicProperties] // PERMITE A CRIAÇÃO DINÂMICA DE PROPRIEDADADES
 class UsuarioDTO extends ModeloDTO {
   protected $id;
   protected $nome;
