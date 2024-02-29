@@ -2,8 +2,22 @@
 
 {% block titlePage %}Confirmação{% endblock %}
 
-{% block body %}
-  <h1>Conta criada</h1>
+{% block header %}{% endblock %}
 
-  <a href="/">Entrar</a>
+{% block body %}
+  <article>
+    <div class="box-confirmacao">
+      <img src="{{pathResourcesImg}}/geral/logo-agenda-ponto-colored.png" alt="Logo" class="formulario">
+  
+      <h2 class="formulario">
+        Conta criada!
+      </h2>
+  
+      <p class="formulario">Faça o login com seu usuário</p>
+  
+      <p class="formulario">
+        <a href="/entrar" type="submit" id="Btn_entrar">Entrar</a>
+      </p>
+    </div>
+  </article>
 {% endblock %}

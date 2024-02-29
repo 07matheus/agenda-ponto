@@ -56,6 +56,7 @@ class Cadastro extends Controller {
     $this->getResourcesFilesCompiled('css', 'geral');
     $this->getResourcesFilesCompiled('js', 'geral');
     $this->getResourcesFilesCompiled('css', 'cadastro');
+    $this->getResourcesFilesCompiled('css', 'confirmacao');
     
     $this->validarDadosFormulario($obUsuarioDTO);
 

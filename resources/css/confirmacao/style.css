@@ -1,0 +1,88 @@
+/* Cabeçalho Login */
+header {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.boxLogo {
+  text-align: center;
+}
+
+#logoLogin {
+  margin-top: 5%;
+  width: 18vh;
+  height: 10%;
+}
+
+#tituloLogo {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.7em;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+#subTitulologo {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.1em;
+  font-weight: 500;
+  color: white;
+  padding-bottom: 3%;
+}
+
+/* Tela Login */
+article {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  height: calc(100% - 20px);
+  border-radius: 13px;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  header {
+    height: 100px;
+  }
+  article {
+    height: calc(100% - 100px);
+  }
+}
+
+.box-confirmacao {
+  background-color: white;
+  width: 100%;
+}
+
+.formulario {
+  background-color: white;
+  text-align: center;
+  border-radius: 10px;
+}
+
+img {
+  height: 20vh;
+  width: 20vh;
+}
+
+h2 {
+  font-size: 2em;
+  font-weight: 800;
+  margin-bottom: 25px;
+}
+
+#Btn_entrar {
+  text-decoration: none;
+  background-color: var(--cor-primaria);
+  padding: 5px;
+  color: white;
+  font-weight: 700;
+  font-size: 1.2em;
+  border-radius: 10px;
+  display: block;
+  width: 35vw;
+  margin: auto;
+  margin-top: 10px;
+}
