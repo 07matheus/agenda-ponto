@@ -75,6 +75,13 @@ $route->group('/tarefas', function(RouteCollectorProxyInterface $group) {
   $group->get('/cadastrar', function(Request $request, Response $response) {
     return (new CadastroTarefa($response))->view()->getRenderResponse();
   });
+
+  $group->post('/cadastrar', function(Request $request, Response $response) {
+    $obTarefaDTO  = (new TarefaDTO)->setDados($request->getParsedBody());
+    $obController = new CadastroTarefa($response);
+
+    return $obController->save($obTarefaDTO)->getRenderResponse();
+  });
   
   $group->get('/ver[/{id}]', function(Request $request, Response $response, array $arguments) {
     if(!is_numeric(($arguments['id'] ?? null))) {
