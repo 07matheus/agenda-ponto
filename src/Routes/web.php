@@ -7,6 +7,7 @@ use AgendaPonto\Controllers\Usuario\Editar as EditarUsuario;
 use AgendaPonto\Controllers\Usuario\Login as LoginUsuario;
 use AgendaPonto\Controllers\Tarefas\Cadastro as CadastroTarefa;
 use AgendaPonto\Controllers\Tarefas\Editar as EditarTarefa;
+use AgendaPonto\Models\DTOs\TarefaDTO;
 use AgendaPonto\Models\DTOs\UsuarioDTO;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -84,6 +85,16 @@ $route->group('/tarefas', function(RouteCollectorProxyInterface $group) {
     $obController->setRequestParams($arguments);
 
     return $obController->view()->getRenderResponse();
+  });
+
+  $group->post('/ver[/{id}]', function(Request $request, Response $response, array $arguments) {
+    $obTarefaDTO  = (new TarefaDTO)->setDados($request->getParsedBody());
+    $obController = new EditarTarefa($response, $request);
+
+    // ADICIONA O ID DA TAREFA
+    $obTarefaDTO->set('id', ($arguments['id'] ?? null));
+
+    return $obController->update($obTarefaDTO)->getRenderResponse();
   });
 });
 // ROTAS DO SISTEMA

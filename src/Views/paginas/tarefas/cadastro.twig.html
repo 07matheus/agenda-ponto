@@ -7,7 +7,11 @@
 
   <h1>{{ tituloFormulario }}</h1>
 
-  <form action="/tarefas/cadastro" method="post">
+  <form action="/tarefas/{{tipoFormulario}}" method="post">
+    {% if tipoFormulario == 'editar' %}
+      <input type="number" name="id" value="{{id}}" hidden>
+    {% endif %}
+
     <div>
       <label for="nome">Nome da tarefa</label>
       <input type="text" name="nome" id="nome" value="{{ nome }}">
