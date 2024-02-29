@@ -1,0 +1,37 @@
+:root {
+  --cor-primaria: #FF914D;
+}
+
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background-color: var(--cor-primaria);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html {
+  background-color: var(--cor-primaria);
+}
+
+input:focus,
+input:focus-visible {
+  outline: none;
+}
+
+.alert {
+  max-width: 100%;
+  padding: 5px 3px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+.alert.sucesso {
+  color: #176F35;
+  background-color: #D9FCCC;
+}
+.alert.erro {
+  color: #7A1316;
+  background-color: #FFDDC0;
+}

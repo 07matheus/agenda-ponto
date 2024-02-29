@@ -15,15 +15,25 @@
     </title>
   </head>
 
-  {% block header %}{% endblock %}
+  <header>
+    {% block header %}
+      <div class="boxLogo">
+        <img src="{{pathResourcesImg}}/geral/logo-agenda-ponto.png" alt="Logo AgendaPonto" id="logoLogin">
+        <p id="tituloLogo">AgendaPonto</p>
+        <p id="subTitulologo">Sua agenda online</p>
+      </div>
+    {% endblock %}
+  </header>
 
   <body>
     {% block body %}{% endblock %}
   </body>
 
-  {% if resourcesFilesJS|length > 0 %}
-    {% for pathFile in resourcesFilesJS %}
-      <script src="{{ pathFile }}"></script>
-    {% endfor %}
-  {% endif %}
+  <footer>
+    {% if resourcesFilesJS|length > 0 %}
+      {% for pathFile in resourcesFilesJS %}
+        <script src="{{ pathFile }}"></script>
+      {% endfor %}
+    {% endif %}
+  </footer>
 </html>

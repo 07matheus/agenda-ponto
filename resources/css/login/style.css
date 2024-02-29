@@ -1,19 +1,9 @@
-* {
-  border: 0;
-  margin: 0;
-  padding: 0;
-  background-color: #FF914D;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-  background-color: #FF914D;
-}
-
 /* Cabeçalho Login */
 header {
-  height: 22vh;
-  display: flex; align-items: center; justify-content: center;
+  height: 60%;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
 }
 
 .boxLogo {
@@ -45,42 +35,46 @@ header {
 /* Tela Login */
 article {
   background-color: white;
-  height: 100vh;
-  border-radius: 13px;
-  padding-top: 8vh;
+  border-radius: 13px 13px 0 0;
+  padding: 40px 0;
 }
 
 form {
   background-color: white;
   border-radius: 10px;
+  padding: 0 20px;
 }
 
 .formulario {
   background-color: white;
   text-align: center;
   border-radius: 10px;
+  max-width: 100%;
+}
+.formulario:not(:last-child) {
+  margin-bottom: 15px;
 }
 
 fieldset {
+  max-width: 100%;
   background-color: white;
+  margin-top: 10px;
 }
 
 #email, #senha {
-  width: 40vh;
+  width: 96%;
   padding: 4px;
-  border: 1px solid #FF914D;
+  border: 1px solid #e2e2e2;
   background-color: white;
   border-radius: 3px;
 }
-
-#senha {
-  background-image: url("./images/agendaponto-simb.png");
-  background-repeat: no-repeat;
-  background-position: left;
+#email:focus-visible, 
+#senha:focus-visible {
+  border-color: var(--cor-primaria);
 }
 
 button {
-  background-color: #FF914D;
+  background-color: var(--cor-primaria);
   width: 40vh;
   padding: 5px;
   color: white;
@@ -89,7 +83,6 @@ button {
 }
 
 #Btn_entrar {
-  margin-top: 5vh;
   border-radius: 7px;
 }
 
@@ -106,8 +99,7 @@ legend {
 }
 
 #link {
-  
   background-color: white;
-  color: #FF914D;
+  color: var(--cor-primaria);
   text-decoration: none;
 }

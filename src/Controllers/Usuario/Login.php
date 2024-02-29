@@ -45,6 +45,9 @@ class Login extends Controller {
    */
   public function view(): Login {
     $this->setPathView('paginas/usuario/login');
+    $this->getResourcesFilesCompiled('css', 'geral');
+    $this->getResourcesFilesCompiled('css', 'login');
+    $this->getResourcesFilesCompiled('js', 'geral');
     return $this;
   }
 
@@ -54,7 +57,13 @@ class Login extends Controller {
    * @return Login
    */
   public function save($obUsuarioDTO): Login {
+    // DEFINIÇÃO DO LAYOUT
     $this->setPathView('paginas/usuario/login');
+    $this->getResourcesFilesCompiled('css', 'geral');
+    $this->getResourcesFilesCompiled('css', 'login');
+    $this->getResourcesFilesCompiled('js', 'geral');
+
+    // VALIDAÇÃO DO FORMULÁRIO
     $this->validarDadosFormulario($obUsuarioDTO);
     if(!$this->status) return $this;
 

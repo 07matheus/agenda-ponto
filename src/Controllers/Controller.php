@@ -112,11 +112,11 @@ abstract class Controller {
     $arquivos = Resources::getFullPathResources("$tipo/$diretorio");
     switch($tipo) {
       case 'css':
-        $this->resourcesFilesCSS += $arquivos;
+        $this->resourcesFilesCSS = array_merge($this->resourcesFilesCSS, $arquivos);
       break;
 
       case 'js':
-        $this->resourcesFilesCSS += $arquivos;
+        $this->resourcesFilesJS = array_merge($this->resourcesFilesJS, $arquivos);
       break;
     }
 

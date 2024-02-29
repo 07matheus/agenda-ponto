@@ -3,25 +3,37 @@
 {% block titlePage %}Entrar{% endblock %}
 
 {% block body %}
-  {{ response }}
+  <body>
+    <article>
+      <form action="/entrar" method="POST">
 
-  <form action="/entrar" method="post">
-    <div>
-      <label for="email">E-mail:</label>
-      <input type="email" name="email" id="email">
-    </div>
+        {% if response|length > 0 %}
+          {% if status %}
+            <p class="alert sucesso">{{response}}</p>
+          {% else %}
+            <p class="alert erro">{{response}}</p>
+          {% endif %}
+        {% endif %}
 
-    <br>
-    <br>
+        <fieldset>
+          <p class="formulario">
+            <input type="text" name="email" id="email" placeholder="Usuário"/>
+          </p>
 
-    <div>
-      <label for="senha">Senha:</label>
-      <input type="password" name="senha" id="senha">
-    </div>
+          <p class="formulario">
+            <input type="password" name="senha" id="senha" placeholder="Senha"/>
+          </p>
 
-    <br>
-    <br>
+          <p class="formulario">
+            <button type="submit" id="Btn_entrar">ENTRAR</button>
+          </p>
 
-    <button type="submit">Enviar</button>
-  </form>
+          <p class="formulario">
+            Não tem conta?
+            <a href="/usuario/cadastro" id="link">Criar conta agora</a>
+          </p>
+        </fieldset>
+      </form>
+    </article>
+  </body>
 {% endblock %}

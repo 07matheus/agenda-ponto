@@ -2,7 +2,6 @@
 
 use AgendaPonto\Configs\Session;
 use AgendaPonto\Controllers\Dashboard\Listagem as MinhasTarefas;
-use AgendaPonto\Controllers\Inicio;
 use AgendaPonto\Controllers\Usuario\Cadastro as CadastroUsuario;
 use AgendaPonto\Controllers\Usuario\Editar as EditarUsuario;
 use AgendaPonto\Controllers\Usuario\Login as LoginUsuario;
@@ -21,7 +20,8 @@ $response = Request::class;
 
 // ROTAS DO SISTEMA
 $route->get('/', function(Request $request, Response $response) {
-  return (new Inicio($response))->view()->getRenderResponse();
+  header('Location: /entrar');
+  exit;
 })->add(new ForceLoginMiddleware);
 
 $route->get('/entrar', function(Request $request, Response $response) {
@@ -43,7 +43,7 @@ $route->get('/dashboard', function(Request $request, Response $response) {
   return (new MinhasTarefas($response))->viewAll()->getRenderResponse();
 })->add(new RequiredLoginMiddleware);
 
-$route->post('/entrar', function(Request $request, Response $response) use ($route) {
+$route->post('/entrar', function(Request $request, Response $response) {
   $dtoUsuario   = (new UsuarioDTO)->setDados($request->getParsedBody());
   $obController = new LoginUsuario($response);
 
