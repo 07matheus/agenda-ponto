@@ -1,5 +1,6 @@
 <?php
 
+use AgendaPonto\Configs\Session;
 use AgendaPonto\Controllers\Dashboard\Listagem as MinhasTarefas;
 use AgendaPonto\Controllers\Usuario\Cadastro as CadastroUsuario;
 use AgendaPonto\Controllers\Usuario\Editar as EditarUsuario;
@@ -45,6 +46,13 @@ $route->group('/usuario', function(RouteCollectorProxyInterface $group) {
     $obController = new EditarUsuario($response, $request);
     
     return $obController->view()->getRenderResponse();
+  });
+
+  $group->get('/sair', function(Request $request, Response $response) {
+    (new Session)->cleanSession(['usuario']);
+
+    header("Location: /");
+    exit;
   });
   
   $group->post('/editar', function(Request $request, Response $response) {
