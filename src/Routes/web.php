@@ -7,6 +7,7 @@ use AgendaPonto\Controllers\Usuario\Editar as EditarUsuario;
 use AgendaPonto\Controllers\Usuario\Login as LoginUsuario;
 use AgendaPonto\Controllers\Tarefas\Cadastro as CadastroTarefa;
 use AgendaPonto\Controllers\Tarefas\Editar as EditarTarefa;
+use AgendaPonto\Middlewares\{RequiredLoginMiddleware, ForceLoginMiddleware};
 use AgendaPonto\Models\DTOs\TarefaDTO;
 use AgendaPonto\Models\DTOs\UsuarioDTO;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -21,28 +22,35 @@ $response = Request::class;
 $route->get('/', function(Request $request, Response $response) {
   $response->getBody()->write(twig('paginas/inicio'));
   return $response;
-});
-
-$route->get('/dashboard', function(Request $request, Response $response) {
-  return (new MinhasTarefas($response))->viewAll()->getRenderResponse();
-});
+})->add(new ForceLoginMiddleware);
 
 $route->get('/entrar', function(Request $request, Response $response) {
   return (new LoginUsuario($response))->view()->getRenderResponse();
-});
+})->add(new ForceLoginMiddleware);
+
+$route->get('/usuario/cadastro', function(Request $request, Response $response) {
+  return (new CadastroUsuario($response))->view()->getRenderResponse(new UsuarioDTO);
+})->add(new ForceLoginMiddleware);
+
+$route->post('/usuario/cadastro', function(Request $request, Response $response) {
+  $dtoUsuario   = (new UsuarioDTO)->setDados($request->getParsedBody());
+  $obController = new CadastroUsuario($response);
+
+  return $obController->save($dtoUsuario)->getRenderResponse($dtoUsuario);
+})->add(new ForceLoginMiddleware);
+
+$route->get('/dashboard', function(Request $request, Response $response) {
+  return (new MinhasTarefas($response))->viewAll()->getRenderResponse();
+})->add(new RequiredLoginMiddleware);
 
 $route->post('/entrar', function(Request $request, Response $response) use ($route) {
   $dtoUsuario   = (new UsuarioDTO)->setDados($request->getParsedBody());
   $obController = new LoginUsuario($response);
 
   return $obController->save($dtoUsuario)->getRenderResponse();
-});
+})->add(new ForceLoginMiddleware);
 
 $route->group('/usuario', function(RouteCollectorProxyInterface $group) {
-  $group->get('/cadastro', function(Request $request, Response $response) {
-    return (new CadastroUsuario($response))->view()->getRenderResponse(new UsuarioDTO);
-  });
-
   $group->get('/editar', function(Request $request, Response $response) {
     $obController = new EditarUsuario($response, $request);
     
@@ -62,14 +70,7 @@ $route->group('/usuario', function(RouteCollectorProxyInterface $group) {
 
     return $obController->update($obUsuarioDTO)->getRenderResponse($obUsuarioDTO);
   });
-  
-  $group->post('/cadastro', function(Request $request, Response $response) {
-    $dtoUsuario   = (new UsuarioDTO)->setDados($request->getParsedBody());
-    $obController = new CadastroUsuario($response);
-  
-    return $obController->save($dtoUsuario)->getRenderResponse($dtoUsuario);
-  });
-});
+})->add(new RequiredLoginMiddleware);
 
 $route->group('/tarefas', function(RouteCollectorProxyInterface $group) {
   $group->get('/cadastrar', function(Request $request, Response $response) {
@@ -103,5 +104,5 @@ $route->group('/tarefas', function(RouteCollectorProxyInterface $group) {
 
     return $obController->update($obTarefaDTO)->getRenderResponse();
   });
-});
+})->add(new RequiredLoginMiddleware);
 // ROTAS DO SISTEMA
