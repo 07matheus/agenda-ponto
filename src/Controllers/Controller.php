@@ -53,7 +53,8 @@ abstract class Controller {
       'response'          => $this->response,
       'status'            => $this->status,
       'resourcesFilesCSS' => $this->resourcesFilesCSS,
-      'resourcesFilesJS'  => $this->resourcesFilesJS
+      'resourcesFilesJS'  => $this->resourcesFilesJS,
+      'pathResourcesImg'  => $_ENV['APP_CAMINHO'] . '/resources/imgs'
     ];
 
     $dadosLayout = array_merge($defaultData, $dataObDTO, $this->dataOthers);
