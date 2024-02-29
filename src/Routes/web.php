@@ -2,6 +2,7 @@
 
 use AgendaPonto\Configs\Session;
 use AgendaPonto\Controllers\Dashboard\Listagem as MinhasTarefas;
+use AgendaPonto\Controllers\Inicio;
 use AgendaPonto\Controllers\Usuario\Cadastro as CadastroUsuario;
 use AgendaPonto\Controllers\Usuario\Editar as EditarUsuario;
 use AgendaPonto\Controllers\Usuario\Login as LoginUsuario;
@@ -20,8 +21,7 @@ $response = Request::class;
 
 // ROTAS DO SISTEMA
 $route->get('/', function(Request $request, Response $response) {
-  $response->getBody()->write(twig('paginas/inicio'));
-  return $response;
+  return (new Inicio($response))->view()->getRenderResponse();
 })->add(new ForceLoginMiddleware);
 
 $route->get('/entrar', function(Request $request, Response $response) {

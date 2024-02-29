@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% if resourcesFilesCSS|length > 0 %}
+      {% for pathFile in resourcesFilesCSS %}
+        <link rel="stylesheet" href="{{ pathFile }}">
+      {% endfor %}
+    {% endif %}
   
     <title>
       Agenda Ponto - {% block titlePage %}Bem Vindo!{% endblock %}
@@ -15,5 +21,9 @@
     {% block body %}{% endblock %}
   </body>
 
-  {% block footer %}{% endblock %}
+  {% if resourcesFilesJS|length > 0 %}
+    {% for pathFile in resourcesFilesJS %}
+      <script src="{{ pathFile }}"></script>
+    {% endfor %}
+  {% endif %}
 </html>

@@ -2,6 +2,7 @@
 
 namespace AgendaPonto\Controllers;
 
+use AgendaPonto\Configs\Resources;
 use AgendaPonto\Models\DTOs\ModeloDTO;
 use Slim\Psr7\{Request, Response};
 
@@ -16,6 +17,9 @@ abstract class Controller {
   private $redirectTo;
   private $slimrResponse;
   private $slimRequest;
+
+  private array $resourcesFilesCSS = [];
+  private array $resourcesFilesJS = [];
 
   public function __construct(Response $response, Request $request = null) {
     $this->slimrResponse = $response;
@@ -46,11 +50,14 @@ abstract class Controller {
 
     $dataObDTO   = ($obDataDTO instanceof ModeloDTO) ? $obDataDTO->toArray(): [];
     $defaultData = [
-      'response' => $this->response,
-      'status'   => $this->status
+      'response'          => $this->response,
+      'status'            => $this->status,
+      'resourcesFilesCSS' => $this->resourcesFilesCSS,
+      'resourcesFilesJS'  => $this->resourcesFilesJS
     ];
 
-    $this->slimrResponse->getBody()->write(twig($this->pathView, array_merge($defaultData, $dataObDTO, $this->dataOthers)));
+    $dadosLayout = array_merge($defaultData, $dataObDTO, $this->dataOthers);
+    $this->slimrResponse->getBody()->write(twig($this->pathView, $dadosLayout));
     return $this->slimrResponse;
   }
 
@@ -95,6 +102,23 @@ abstract class Controller {
   }
 
   public function viewAll(): Controller {
+    return $this;
+  }
+
+  protected function getResourcesFilesCompiled(string $tipo, string $diretorio): Controller {
+    if(!in_array($tipo, ['js', 'css']) || !strlen($diretorio)) return '';
+
+    $arquivos = Resources::getFullPathResources("$tipo/$diretorio");
+    switch($tipo) {
+      case 'css':
+        $this->resourcesFilesCSS += $arquivos;
+      break;
+
+      case 'js':
+        $this->resourcesFilesCSS += $arquivos;
+      break;
+    }
+
     return $this;
   }
 }
