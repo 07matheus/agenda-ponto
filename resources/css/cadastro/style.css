@@ -1,6 +1,6 @@
 /* Cabeçalho Login */
 header {
-  height: 60%;
+  height: 30%;
   display: flex; 
   align-items: center; 
   justify-content: center;
@@ -36,32 +36,47 @@ header {
 article {
   background-color: white;
   border-radius: 13px 13px 0 0;
-  padding: 40px 0;
+  height: calc(100% - 30%);
 }
 
 form {
+  display: flex;
+  align-items: center;
+  height: 100%;
   background-color: white;
   border-radius: 10px;
   padding: 0 20px;
+  margin: auto 0;
 }
 
+.box-input,
+.box-input .legenda-formulario {
+  background-color: white;
+}
+.box-input:not(:last-child) {
+  margin-bottom: 15px;
+}
+@media (min-width: 768px) {
+  .box-input {
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
 .formulario {
   background-color: white;
   text-align: center;
   border-radius: 10px;
   max-width: 100%;
 }
-.formulario:not(:last-child) {
-  margin-bottom: 15px;
-}
 
 fieldset {
-  max-width: 100%;
+  width: 100%;
   background-color: white;
   margin-top: 10px;
 }
 
-#email, #senha {
+#nome, #email, #senha {
   width: 96%;
   padding: 4px;
   border: 1px solid #e2e2e2;
@@ -75,7 +90,7 @@ fieldset {
 
 button {
   background-color: var(--cor-primaria);
-  width: 40vh;
+  width: 100%;
   padding: 5px;
   color: white;
   font-weight: 700;
@@ -89,6 +104,12 @@ button {
 h2 {
   font-size: 2em;
   font-weight: 800;
+}
+
+legend {
+  font-size: 0.9em;
+  text-align: left;
+  padding: 5px;
 }
 
 #link {

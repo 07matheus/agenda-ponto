@@ -18,6 +18,8 @@ class Cadastro extends Controller {
     $quantidadeMinima = null;
     $this->status     = true;
 
+    if(is_null($valorCampo)) $valorCampo = '';
+
     switch($campo) {
       case 'email':
         $quantidadeMaxima = 255;
@@ -51,6 +53,10 @@ class Cadastro extends Controller {
    */
   public function save($obUsuarioDTO): Cadastro {
     $this->setPathView('paginas/usuario/cadastro');
+    $this->getResourcesFilesCompiled('css', 'geral');
+    $this->getResourcesFilesCompiled('js', 'geral');
+    $this->getResourcesFilesCompiled('css', 'cadastro');
+    
     $this->validarDadosFormulario($obUsuarioDTO);
 
     // ADICIONA CRIPTOGRAFIA
@@ -62,23 +68,29 @@ class Cadastro extends Controller {
       if($obUsuario instanceof Usuario) {
         $this->status   = false;
         $this->response = "O usuário informado já está cadastrado";
-        return $this;
       }
   
       // CADASTRA O USUÁRIO NO BANCO
-      $obNovoUsuario = Usuario::create($obUsuarioDTO->toArray());
-      $this->status  = ($obNovoUsuario instanceof Usuario);
-    
-      // DEFINE A PÁGINA DE CONFRMAÇÃO
-      $this->setPathView('paginas/usuario/confirmacao');
-      if(!$this->status) {
-        $this->status   = false;
-        $this->response = 'Não foi possível realizar o cadastro no momento. Tente novamente mais tarde!';
-
-        // VOLTA PARA A PÁGINA DE CADASTRO
-        $this->setPathView('paginas/usuario/cadastro');
+      if($this->status) {
+        $obNovoUsuario = Usuario::create($obUsuarioDTO->toArray());
+        $this->status  = ($obNovoUsuario instanceof Usuario);
+      
+        // DEFINE A PÁGINA DE CONFRMAÇÃO
+        $this->setPathView('paginas/usuario/confirmacao');
+        if(!$this->status) {
+          $this->status   = false;
+          $this->response = 'Não foi possível realizar o cadastro no momento. Tente novamente mais tarde!';
+  
+          // VOLTA PARA A PÁGINA DE CADASTRO
+          $this->setPathView('paginas/usuario/cadastro');
+        }
       }
     }
+
+    $this->dataOthers = array_merge([
+      'local'                  => 'cadastro',
+      'tituloEspecificoPagina' => 'Cadastro'
+    ], $obUsuarioDTO->toArray());
 
     return $this;
   }
@@ -89,6 +101,10 @@ class Cadastro extends Controller {
    */
   public function view(): Cadastro {
     $this->setPathView('paginas/usuario/cadastro');
+    $this->getResourcesFilesCompiled('css', 'geral');
+    $this->getResourcesFilesCompiled('js', 'geral');
+    $this->getResourcesFilesCompiled('css', 'cadastro');
+
     $this->dataOthers = [
       'local'                  => 'cadastro',
       'tituloEspecificoPagina' => 'Cadastro'

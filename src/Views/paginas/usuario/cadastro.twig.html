@@ -3,52 +3,77 @@
 {% block titlePage %} {{tituloEspecificoPagina}} {% endblock %}
 
 {% block body %}
-  {{ response }}
+  <body>
+    <article>
+      <form action="/usuario/{{local}}" method="POST">
+        <fieldset>
+          {% if response|length > 0 %}
+            {% if status %}
+              <p class="alert sucesso">{{response}}</p>
+            {% else %}
+              <p class="alert erro">{{response}}</p>
+            {% endif %}
+          {% endif %}
 
-  <form action="/usuario/{{local}}" method="post">
-    <div>
-      <label for="nome">Nome:</label>
-      <input type="text" name="nome" id="nome" value="{{nome}}">
-    </div>
+          <div class="box-input">
+            <legend class="legenda-formulario">Digite o seu nome</legend>
+            <p class="formulario">
+              <input type="text" name="nome" id="nome" placeholder="Usuário" value="{{nome}}"/>
+            </p>
+          </div>
 
-    <br>
-    <br>
+          <div class="box-input">
+            <legend class="legenda-formulario">Digite o seu e-mail</legend>
+            <p class="formulario">
+              <input type="text" name="email" id="email" placeholder="seu-email@email.com" value="{{email}}"/>
+            </p>
+          </div>
 
-    <div>
-      <label for="email">E-mail:</label>
-      <input type="email" name="email" id="email" value="{{email}}">
-    </div>
+          {% if local == 'editar' %}
+            <div>
+              <label>Alterar senha</label>
+              
+              <div>
+                <label for="alterarSenhaSim">Sim</label>
+                <input type="radio" name="alterarSenha" value="s" id="alterarSenhaSim">
+              </div>
 
-    <br>
-    <br>
+              <div>
+                <label for="alterarSenhaNao">Não</label>
+                <input type="radio" name="alterarSenha" value="n" id="alterarSenhaNao" checked>
+              </div>
+            </div>
+          {% endif %}
 
-    {% if local == 'editar' %}
-      <div>
-        <label>Alterar senha</label>
-        
-        <div>
-          <label for="alterarSenhaSim">Sim</label>
-          <input type="radio" name="alterarSenha" value="s" id="alterarSenhaSim">
-        </div>
+          <div class="box-input">
+            <legend class="legenda-formulario">Crie sua senha</legend>
+            <p class="formulario">
+              <input type="password" name="senha" id="senha" placeholder="Senha"/>
+            </p>
+          </div>
 
-        <div>
-          <label for="alterarSenhaNao">Não</label>
-          <input type="radio" name="alterarSenha" value="n" id="alterarSenhaNao" checked>
-        </div>
-      </div>
-
-      <br>
-      <br>
-    {% endif %}
-
-    <div>
-      <label for="senha">Senha:</label>
-      <input type="password" name="senha" id="senha">
-    </div>
-
-    <br>
-    <br>
-
-    <button type="submit">Enviar</button>
-  </form>
+          <div class="box-input">
+            <p class="formulario">
+              <button type="submit" id="Btn_entrar">
+                {% if local == 'editar' %}
+                  Salvar
+                {% else %}
+                  Criar
+                {% endif %}
+              </button>
+            </p>
+          </div>
+          
+          {% if local == 'cadastro' %}
+            <div class="box-input">
+              <p class="formulario">
+                Já possui uma conta?
+                <a href="/entrar" id="link">Entrar agora</a>
+              </p>
+            </div>
+          {% endif %}
+        </fieldset>
+      </form>
+    </article>
+  </body>
 {% endblock %}
