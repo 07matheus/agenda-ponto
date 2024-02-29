@@ -15,6 +15,7 @@ class Cadastro extends Controller {
     $this->dataOthers = [
       'isAtualizacao'       => false,
       'tituloFormulario'    => 'Cadastrar tarefa',
+      'tituloPagina'        => 'Cadastro',
       'nomeBotaoFormulario' => 'Criar'
     ];
 

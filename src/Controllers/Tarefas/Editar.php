@@ -40,6 +40,7 @@ class Editar extends Controller {
     $this->dataOthers = array_merge([
       'isAtualizacao'       => true,
       'tituloFormulario'    => 'Editar tarefa',
+      'tituloPagina'        => 'Edição',
       'nomeBotaoFormulario' => 'Salvar'
     ], $obTarefaDTO->toArray(true, true));
 
