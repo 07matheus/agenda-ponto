@@ -1,0 +1,197 @@
+/* Cabeçalho Login */
+header {
+  height: 18vh;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+}
+
+.box-icone-usuario {
+  width: 80px;
+  display: flex;
+  border-radius: 50%;
+  border: 1px solid white;
+  height: 80px;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+.box-icone-usuario > img {
+  height: 100%;
+  border-radius: 50%;
+}
+
+header .title {
+  width: calc(100% - 210px);
+}
+
+title {
+  display: block;
+}
+
+h2, h3 {
+  color: white;
+}
+
+h2 {
+  font-size: 1.3em;
+}
+
+h3 {
+  font-size: 1em;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.txt_perfil {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100px;
+  justify-content: end;
+}
+
+.txt_txt_perfil {
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+.txt_txt_perfil > a {
+  text-decoration: none;
+  color: white;
+}
+
+/* Tela Login */
+article {
+  padding: 20px;
+  background-color: white;
+  border-radius: 13px;
+  justify-content: center;
+  align-items: baseline;
+  display: flex;
+}
+
+.formatar {
+  background-color: white;
+}
+
+.div_content {
+  margin-top: 10px;
+  width: 78vw;
+  text-align: center;
+  background-color: white;
+}
+
+#title_content {
+  color: black;
+  font-weight: 800;
+  font-size: 2em;
+  background-color: white;
+}
+
+/* Tarefa 01 */
+.div-tarefa {
+  padding: 5px 10px;
+}
+.div-tarefa h3 {
+  font-weight: bold;
+}
+.div_tarefa_01 {
+  text-align: left;
+  border-radius: 7px;
+  background-color: #FF914D;
+  margin-top: 2vh;
+}
+
+#title_tarefa_01 {
+  font-size: 1.3em;
+  padding: 5px;
+}
+
+.txt_tarefa_01 {
+  color: white;
+  padding: 3px;
+  font-size: 0.8em;
+  font-weight: 500;
+}
+
+.div_acao_tarefa_01 {
+  display: flex;
+  justify-content: end;
+}
+
+.txt_acao_tarefa_01 {
+  padding: 5px;
+  padding-right: 15px;
+  font-weight: 500;
+}
+.txt_acao_tarefa_01 > a {
+  color: white;
+  text-decoration: none;
+}
+
+/* Tarefa 02 */
+.div_tarefa_02,
+.div_tarefa_02 :nth-child(n) {
+  background-color: white;
+}
+.div_tarefa_02 {
+  text-align: left;
+  border-radius: 7px;
+  border: 1px solid #FF914D;
+  margin-top: 2vh;
+}
+
+#title_tarefa_02 {
+  font-size: 1.3em;
+  padding: 5px;
+  color: #FF914D;
+}
+
+.txt_tarefa_02 {
+  color: white;
+  padding: 3px;
+  font-size: 0.8em;
+  font-weight: 500;
+  color: #FF914D;
+}
+
+.div_acao_tarefa_02 {
+  display: flex;
+  justify-content: end;
+}
+
+.txt_acao_tarefa_02 {
+  padding: 5px;
+  padding-right: 15px;
+  font-weight: 500;
+}
+.txt_acao_tarefa_02 > a {
+  color: #FF914D;
+  text-decoration: none;
+}
+
+.btn_criar {
+  background-color: white;
+  height: 11vh;
+  position: relative;
+  bottom: 0;
+}
+
+#btn_criar_tarefa {
+  background-color: white;
+  float: inline-end;
+  width: 50px;
+  height: 50px;
+  padding: 5px;
+}
+
+/* Rodapé */
+#rodape {
+  background-color: #FF914D;
+  text-align: center;
+  padding: 4% 0;
+}
+
+#img_footer {
+  height: 5vh;
+}

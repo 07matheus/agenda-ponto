@@ -1,41 +1,72 @@
 {% extends 'app.twig.html' %}
 
+{% block header %}
+    <div class="box-icone-usuario">
+      <img src="{{pathResourcesImg}}/login/icon-usuario-1.png" alt="Logo">
+    </div>
+
+    <div class="title">
+      <h2>Olá,</h2>
+
+      <h3>{{nomeUsuario}}</h3>
+    </div>
+
+    <div class="txt_perfil">
+      <h3 class="txt_txt_perfil">
+        <a href="/usuario/sair">Sair</a>
+      </h3>
+
+      <h3 class="txt_txt_perfil">
+        <a href="/usuario/editar">Editar perfil</a>
+      </h3>
+    </div>
+{% endblock %}
+
 {% block titlePage %}Minhas tarefas{% endblock %}
 
 {% block body %}
-  <h1>Olá</h1>
-  <h3>{{nomeUsuario}}</h3>
 
-  <div>
-    <a href="/usuario/editar">Perfil</a>
-  </div>
+  <article>
+    <div class="div_content">
+      <h2 class="formatar" id="title_content">Lista de Tarefas</h2>
 
-  <div>
-    <a href="/usuario/sair">Sair</a>
-  </div>
+      {% if dadosTarefas|length > 0 %}
+        {% for tarefa in dadosTarefas %}
+          <div class="div-tarefa div_tarefa{{tarefa.tipoLayout}}">
+            <h3 id="title_tarefa{{tarefa.tipoLayout}}">{{ tarefa.nome }}</h3>
+    
+            <p class="txt_tarefa{{tarefa.tipoLayout}}">
+              <b>Data de vencimento:</b> <span>{{ tarefa.dataVencimento }}</span>
+            </p>
+    
+            <p class="txt_tarefa{{tarefa.tipoLayout}}">
+              <b>Prioridade:</b> <span>{{ tarefa.prioridade }}</span>
+            </p>
+            
+            <p class="txt_tarefa{{tarefa.tipoLayout}}">
+              <b>Descrição:</b> <span>{{ tarefa.descricao }}</span>
+            </p>
+            
+            <div class="div_acao_tarefa{{tarefa.tipoLayout}}">
+              <p class="txt_acao_tarefa{{tarefa.tipoLayout}}">
+                <a href="/tarefas/ver/{{tarefa.id}}">Editar</a>
+              </p>
 
-  <div>
-    <a href="/tarefas/cadastrar">Nova Tarefa</a>
-  </div>
+              <p class="txt_acao_tarefa{{tarefa.tipoLayout}}">
+                <a href="/tarefas/ver/{{tarefa.id}}">Excluir</a>
+              </p>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <h4>Você não possui nenhuma tarefa cadastrada!</h4>
+      {% endif %}
+    </div>
+  </article>
 
-  <br>
-
-  <div>
-    <b>Quantidade de tarefas:</b>
-    {{ dadosTarefas|length }}
-  </div>
-
-  {% if dadosTarefas|length > 0 %}
-    <ul>
-      {% for tarefa in dadosTarefas %}
-        <li>
-          <spn>{{ tarefa.nome }}</spn>
-          
-          <a href="/tarefas/ver/{{ tarefa.id }}">Editar</a>
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <h4>Você não possui nenhuma tarefa cadastrada!</h4>
-  {% endif %}
+  <section id="rodape">
+    <img src="{{pathResourcesImg}}/geral/logo-agenda-ponto.png" id="img_footer">
+    <h2>Data - Horário atual</h3>
+    <h3>AgendaPonto a sua agenda</h3>
+  </section>
 {% endblock %}
