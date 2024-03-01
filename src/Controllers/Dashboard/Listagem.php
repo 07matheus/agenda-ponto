@@ -43,7 +43,9 @@ class Listagem extends Controller {
 
     $this->dataOthers = [
       'nomeUsuario'  => $usuarioSessao['nome'],
-      'dadosTarefas' => $dadosTarefas
+      'dadosTarefas' => $dadosTarefas,
+      'dataAtual'    => (new DateTime('now'))->format('d/m/Y'),
+      'horarioAtual' => (new DateTime('now'))->format('h:m:s')
     ];
 
     return $this;

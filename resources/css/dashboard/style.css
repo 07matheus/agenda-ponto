@@ -102,6 +102,11 @@ article {
   text-decoration: underline;
   background-color: white;
 }
+@media (max-width: 767px) {
+  .box-btn-nova-tarefa .btn-nova-tarefa {
+    margin-top: 10px;
+  }
+}
 
 /* Tarefa 01 */
 .div-tarefa {
