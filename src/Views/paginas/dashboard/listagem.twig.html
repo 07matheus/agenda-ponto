@@ -30,6 +30,10 @@
     <div class="div_content">
       <h2 class="formatar" id="title_content">Lista de Tarefas</h2>
 
+      <div class="box-btn-nova-tarefa">
+        <a href="/tarefas/cadastrar" class="btn-nova-tarefa">Nova tarefa</a>
+      </div>
+
       {% if dadosTarefas|length > 0 %}
         {% for tarefa in dadosTarefas %}
           <div class="div-tarefa div_tarefa{{tarefa.tipoLayout}}">

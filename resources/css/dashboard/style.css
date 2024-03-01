@@ -88,6 +88,21 @@ article {
   background-color: white;
 }
 
+.box-btn-nova-tarefa {
+  display: flex;
+  margin-bottom: 20px;
+  background-color: white;
+}
+.box-btn-nova-tarefa .btn-nova-tarefa {
+  text-align: initial;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--cor-primaria);
+  text-decoration: underline;
+  background-color: white;
+}
+
 /* Tarefa 01 */
 .div-tarefa {
   padding: 5px 10px;
@@ -128,6 +143,10 @@ article {
   color: white;
   text-decoration: none;
 }
+.txt_acao_tarefa_01 > a,
+.txt_acao_tarefa_02 > a {
+  font-weight: 600;
+}
 
 /* Tarefa 02 */
 .div_tarefa_02,
@@ -144,7 +163,7 @@ article {
 #title_tarefa_02 {
   font-size: 1.3em;
   padding: 5px;
-  color: #FF914D;
+  color: #535353;
 }
 
 .txt_tarefa_02 {
@@ -152,7 +171,7 @@ article {
   padding: 3px;
   font-size: 0.8em;
   font-weight: 500;
-  color: #FF914D;
+  color: #535353;
 }
 
 .div_acao_tarefa_02 {
@@ -166,7 +185,7 @@ article {
   font-weight: 500;
 }
 .txt_acao_tarefa_02 > a {
-  color: #FF914D;
+  color: #535353;
   text-decoration: none;
 }
 
