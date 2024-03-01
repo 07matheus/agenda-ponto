@@ -44,6 +44,11 @@ class Cadastro extends Controller {
 
   private function setDefinicoesDeLayout() {
     $this->setPathView('paginas/tarefas/cadastro');
+    $this->getResourcesFilesCompiled('css', 'geral');
+    $this->getResourcesFilesCompiled('js', 'geral');
+    $this->getResourcesFilesCompiled('css', 'editar-tarefa');
+    $this->getResourcesFilesCompiled('css', 'cadastrar-tarefa');
+    $this->getResourcesFilesCompiled('js', 'editar-tarefa');
 
     $this->dataOthers = [
       'isAtualizacao'       => false,
