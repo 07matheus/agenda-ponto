@@ -5,7 +5,9 @@ header {
   display: flex;
   align-items: center;
 }
-
+.alert {
+  margin-bottom: 10px;
+}
 .box-icone-usuario {
   width: 80px;
   display: flex;

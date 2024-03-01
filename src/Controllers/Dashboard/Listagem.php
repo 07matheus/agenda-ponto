@@ -19,7 +19,12 @@ class Listagem extends Controller {
     $this->getResourcesFilesCompiled('css', 'geral');
     $this->getResourcesFilesCompiled('css', 'dashboard');
 
-    $usuarioSessao = (new Session)->get(['usuario']);
+    $obSessao      = new Session;
+    $usuarioSessao = $obSessao->get(['usuario']);
+    $alertas       = $obSessao->get(['alerta', 'dashboard']);
+
+    // REMOVE O ALERTA DA SESSÃO
+    if(!empty($alertas)) $obSessao->cleanSession(['alerta', 'dashboard']);
 
     // BUSCA AS TAREFAS DE UM USUÁRIO
     $tarefas = Tarefa::where(
@@ -42,10 +47,12 @@ class Listagem extends Controller {
     }
 
     $this->dataOthers = [
-      'nomeUsuario'  => $usuarioSessao['nome'],
-      'dadosTarefas' => $dadosTarefas,
-      'dataAtual'    => (new DateTime('now'))->format('d/m/Y'),
-      'horarioAtual' => (new DateTime('now'))->format('h:m:s')
+      'nomeUsuario'    => $usuarioSessao['nome'],
+      'dadosTarefas'   => $dadosTarefas,
+      'dataAtual'      => (new DateTime('now'))->format('d/m/Y'),
+      'horarioAtual'   => (new DateTime('now'))->format('h:m:s'),
+      'statusAlerta'   => $alertas['sucesso'] ?? null,
+      'mensagemAlerta' => $alertas['mensagem'] ?? '',
     ];
 
     return $this;

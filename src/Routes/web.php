@@ -7,6 +7,7 @@ use AgendaPonto\Controllers\Usuario\Editar as EditarUsuario;
 use AgendaPonto\Controllers\Usuario\Login as LoginUsuario;
 use AgendaPonto\Controllers\Tarefas\Cadastro as CadastroTarefa;
 use AgendaPonto\Controllers\Tarefas\Editar as EditarTarefa;
+use AgendaPonto\Controllers\Tarefas\Remover as RemoverTarefa;
 use AgendaPonto\Middlewares\{RequiredLoginMiddleware, ForceLoginMiddleware};
 use AgendaPonto\Models\DTOs\TarefaDTO;
 use AgendaPonto\Models\DTOs\UsuarioDTO;
@@ -103,6 +104,26 @@ $route->group('/tarefas', function(RouteCollectorProxyInterface $group) {
     $obTarefaDTO->set('id', ($arguments['id'] ?? null));
 
     return $obController->update($obTarefaDTO)->getRenderResponse();
+  });
+
+  $group->get('/remover[/{id}]', function(Request $request, Response $response, array $arguments) {
+    if(!is_numeric(($arguments['id'] ?? null))) {
+      throw new HttpNotFoundException($request, "Tarefa não encontrada");
+    }
+
+    $obController = new RemoverTarefa($response);
+    $obTarefaDTO  = new TarefaDTO;
+
+    // ADICIONA O ID DA TAREFA
+    $obTarefaDTO->set('id', ($arguments['id'] ?? null));
+    return $obController->view()->getRenderResponse($obTarefaDTO);
+  });
+
+  $group->post('/remover', function(Request $request, Response $response, array $arguments) {
+    $obController = new RemoverTarefa($response);
+    $obTarefaDTO  = (new TarefaDTO)->setDados($request->getParsedBody());
+
+    return $obController->delete($obTarefaDTO)->getRenderResponse($obTarefaDTO);
   });
 })->add(new RequiredLoginMiddleware);
 // ROTAS DO SISTEMA

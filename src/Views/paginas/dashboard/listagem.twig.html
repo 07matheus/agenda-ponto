@@ -28,6 +28,16 @@
 
   <article>
     <div class="div_content">
+      {% if mensagemAlerta|length > 0 %}
+        {% if statusAlerta == true %}
+          <p class="alert sucesso">
+        {% else %}
+          <p class="alert erro">
+        {% endif %}
+          {{mensagemAlerta}}
+        </p>
+      {% endif %}
+
       <h2 class="formatar" id="title_content">Lista de Tarefas</h2>
 
       <div class="box-btn-nova-tarefa">
@@ -57,7 +67,7 @@
               </p>
 
               <p class="txt_acao_tarefa{{tarefa.tipoLayout}}">
-                <a href="/tarefas/ver/{{tarefa.id}}">Excluir</a>
+                <a href="/tarefas/remover/{{tarefa.id}}">Excluir</a>
               </p>
             </div>
           </div>

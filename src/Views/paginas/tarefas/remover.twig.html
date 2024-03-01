@@ -1,0 +1,30 @@
+{% extends 'app.twig.html' %}
+
+{% block header %}{% endblock %}
+{% block titlePage %} Remover tarefa {% endblock %}
+
+{% block body %}
+  <article>
+    <img src="{{pathResourcesImg}}/geral/logo-agenda-ponto.png" alt="Logo" class="formulario">
+    
+    <h2 class="formulario">
+      Tem certeza que deseja excluir a tarefa?
+    </h2>
+
+    <p class="formulario">
+      <form action="/tarefas/remover" method="POST" id="removerTarefa">
+        <input type="number" name="id" hidden value="{{id}}">
+
+        <label for="removerSim">
+          Sim
+          <input type="text" name="remover" id="removerSim" value="s" hidden>
+        </label>
+
+        <label for="removerNao">
+          Não
+          <input type="text" name="remover" id="removerNao" value="n" hidden>
+        </label>
+      </form>
+    </p> 
+  </article>
+{% endblock %}

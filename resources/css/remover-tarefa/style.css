@@ -1,0 +1,89 @@
+/* Cabeçalho Login */
+header {
+  height: 5vh;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.boxLogo {
+  text-align: center;
+}
+
+#logoLogin {
+  margin-top: 5%;
+  width: 18vh;
+  height: 10%;
+}
+
+#tituloLogo {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.7em;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+#subTitulologo {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.1em;
+  font-weight: 500;
+  color: white;
+  padding-bottom: 3%;
+}
+
+/* Tela Login */
+article {
+  background-color: white;
+  height: 82vh;
+  border-radius: 13px;
+  padding-top: 8vh;
+  text-align: center;
+}
+
+.formulario {
+  background-color: white;
+  text-align: center;
+  border-radius: 10px;
+}
+
+img {
+  height: 20vh;
+  width: 20vh;
+}
+
+h2 {
+  font-size: 2em;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+form,
+form :nth-child(n) {
+  background-color: white;
+}
+form label {
+  display: inline-block;
+  cursor: pointer;
+}
+label[for="removerSim"] {
+  background-color: var(--cor-primaria);
+  width: 35vh;
+  padding: 5px;
+  color: white;
+  font-weight: 700;
+  font-size: 1.2em;
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
+label[for="removerNao"] {
+  background-color: #FFF;
+  width: 35vh;
+  padding: 5px;
+  color: #737373;
+  font-weight: 700;
+  font-size: 1.2em;
+  border-radius: 10px;
+  margin-top: 10px;
+  border: 1px solid var(--cor-primaria);
+}
+
