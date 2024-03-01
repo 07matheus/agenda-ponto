@@ -1,10 +1,14 @@
 /* Cabeçalho Login */
 header {
-  height: 18vh;
   padding: 0 10px;
   display: flex;
   align-items: center;
 }
+header,
+#rodape {
+  height: 18vh;
+}
+
 .alert {
   margin-bottom: 10px;
 }
@@ -64,6 +68,7 @@ h3 {
 
 /* Tela Login */
 article {
+  height: calc(100vh - 36vh);
   padding: 20px;
   background-color: white;
   border-radius: 13px;
@@ -120,7 +125,7 @@ article {
 .div_tarefa_01 {
   text-align: left;
   border-radius: 7px;
-  background-color: #FF914D;
+  background-color: var(--cor-primaria);
   margin-top: 2vh;
 }
 
@@ -163,7 +168,7 @@ article {
 .div_tarefa_02 {
   text-align: left;
   border-radius: 7px;
-  border: 1px solid #FF914D;
+  border: 1px solid var(--cor-primaria);
   margin-top: 2vh;
 }
 
@@ -213,11 +218,23 @@ article {
 
 /* Rodapé */
 #rodape {
-  background-color: #FF914D;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: var(--cor-primaria);
   text-align: center;
   padding: 4% 0;
+}
+#rodape > div {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  display: flex;
 }
 
 #img_footer {
   height: 5vh;
+}
+.sem-resultados {
+  color: var(--cor-primaria);
+  background-color: white;
 }

@@ -2,6 +2,7 @@
   --cor-primaria: #FF914D;
   --cor-sucesso: #176F35;
   --cor-erro: #7A1316;
+  --cor-atencao: #AF8818;
 }
 
 * {
@@ -36,4 +37,8 @@ input:focus-visible {
 .alert.erro {
   color: var(--cor-erro) !important;
   background-color: #FFDDC0 !important;
+}
+.alert.atencao {
+  color: var(--cor-atencao);
+  background-color: #FDFA9F;
 }

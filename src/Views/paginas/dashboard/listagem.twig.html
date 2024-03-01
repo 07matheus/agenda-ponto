@@ -73,14 +73,22 @@
           </div>
         {% endfor %}
       {% else %}
-        <h4>Você não possui nenhuma tarefa cadastrada!</h4>
+        <h4 class="sem-resultados alert atencao">Você não possui nenhuma tarefa cadastrada!</h4>
       {% endif %}
     </div>
   </article>
 
   <section id="rodape">
-    <img src="{{pathResourcesImg}}/geral/logo-agenda-ponto.png" id="img_footer">
-    <h2>{{dataAtual}} - {{horarioAtual}}</h3>
-    <h3>AgendaPonto a sua agenda</h3>
+    <div>
+      <img src="{{pathResourcesImg}}/geral/logo-agenda-ponto.png" id="img_footer">
+    </div>
+
+    <div>
+      <h2>{{dataAtual}} - {{horarioAtual}}</h3>
+    </div>
+
+    <div>
+      <h3>AgendaPonto a sua agenda</h3>
+    </div>
   </section>
 {% endblock %}
