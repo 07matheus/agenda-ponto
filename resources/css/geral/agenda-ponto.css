@@ -1,5 +1,7 @@
 :root {
   --cor-primaria: #FF914D;
+  --cor-sucesso: #176F35;
+  --cor-erro: #7A1316;
 }
 
 * {
@@ -28,10 +30,10 @@ input:focus-visible {
   text-align: center;
 }
 .alert.sucesso {
-  color: #176F35;
-  background-color: #D9FCCC;
+  color: var(--cor-sucesso) !important;
+  background-color: #D9FCCC !important;
 }
 .alert.erro {
-  color: #7A1316;
-  background-color: #FFDDC0;
+  color: var(--cor-erro) !important;
+  background-color: #FFDDC0 !important;
 }

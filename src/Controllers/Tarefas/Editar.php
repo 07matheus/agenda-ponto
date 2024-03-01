@@ -12,40 +12,49 @@ use Slim\Exception\HttpNotFoundException;
 
 class Editar extends Controller {
   protected function validarTamanhoCampo($campo, $valorCampo): void {
-    $this->status = true;
+    $this->status     = true;
+    $quantidadeMinima = null;
+    $quantidadeMaxima = null;
 
     switch($campo) {
       case 'nome':
         $quantidadeMinima = 1;
         $quantidadeMaxima = 50;
       break;
+
       case 'prioridade':
         $opcoes = ['baixa', 'media', 'alta'];
         if(!in_array($valorCampo, $opcoes)) {
           $this->response = "As opções permitidas para o campo '$campo', são: " . implode(', ', $opcoes);
           $this->status   = false;
         }
-        return;
+      
+      return;
+      
       case 'dataVencimento':
         if(!(strlen($valorCampo) > 1 && strlen($valorCampo) <= 11)) {
           $this->response = 'O campo de data de vencimento não foi informado';
           $this->status   = false;
         }
 
-        return;
-      break;
+      return;
     }
 
     if(is_numeric($quantidadeMinima) && is_numeric($quantidadeMaxima)) {
       $quantidade = strlen($valorCampo);
       if($quantidade < $quantidadeMinima || $quantidade > $quantidadeMaxima) {
         $this->response = "O campo '{$campo}' possui limitação de caracteres. Min.({$quantidadeMinima}) e Max.({$quantidadeMaxima})";
-        $this->status   = false;
+        $this->status = false;
       }
     }
   }
 
   private function setDadosExibicaoLayout(TarefaDTO $obTarefaDTO): void {
+    $this->setPathView('paginas/tarefas/cadastro');
+    $this->getResourcesFilesCompiled('css', 'geral');
+    $this->getResourcesFilesCompiled('js', 'geral');
+    $this->getResourcesFilesCompiled('css', 'editar-tarefa');
+    $this->getResourcesFilesCompiled('js', 'editar-tarefa');
     $idTarefa = $obTarefaDTO->id;
     
     $this->dataOthers = array_merge([
@@ -57,16 +66,19 @@ class Editar extends Controller {
     ], $obTarefaDTO->toArray(true, true));
 
     // SELETORES
-    $this->dataOthers['checkedPrioridadeBaixa'] = ($obTarefaDTO->prioridade == 'baixa') ? 'checked': '';
-    $this->dataOthers['checkedPrioridadeMedia'] = ($obTarefaDTO->prioridade == 'media') ? 'checked': '';
-    $this->dataOthers['checkedPrioridadeAlta']  = ($obTarefaDTO->prioridade == 'alta') ? 'checked': '';
-    $this->dataOthers['checkedConcluida']       = ($obTarefaDTO->concluida == 's') ? 'checked': '';
-    $this->dataOthers['checkedNaoConcluida']    = ($obTarefaDTO->concluida != 's') ? 'checked': '';
+    $prioridadeBaixa = ($obTarefaDTO->prioridade == 'baixa');
+    $prioridadeMedia = ($obTarefaDTO->prioridade == 'media');
+    $prioridadeAlta  = ($obTarefaDTO->prioridade == 'alta');
+    $this->dataOthers['checkedPrioridadeBaixa'] = $prioridadeBaixa ? 'checked': '';
+    $this->dataOthers['checkedPrioridadeMedia'] = $prioridadeMedia ? 'checked': '';
+    $this->dataOthers['checkedPrioridadeAlta']  = $prioridadeAlta ? 'checked': '';
+
+    $concluida = ($obTarefaDTO->concluida == 's');
+    $this->dataOthers['checkedConcluida']    = $concluida ? 'checked': '';
+    $this->dataOthers['checkedNaoConcluida'] = !$concluida ? 'checked': '';
   }
 
   public function view(): Editar {
-    $this->setPathView('paginas/tarefas/cadastro');
-
     $usuario       = (new Session)->get(['usuario']);
     $requestParams = $this->requestParams;
     $idTarefa      = $requestParams['id'];
@@ -107,9 +119,7 @@ class Editar extends Controller {
     }
 
     // VALIDA OS CAMPOS OBRIGATÓRIOS
-    $this->validarTamanhoCampo('nome', $obTarefaDTO->nome);
-    $this->validarTamanhoCampo('prioridade', $obTarefaDTO->prioridade);
-    $this->validarTamanhoCampo('dataVencimento', $obTarefaDTO->dataVencimento);
+    $this->validarDadosFormulario($obTarefaDTO);
 
     if($this->status) {
       // SALVA AS INFORAÇÕES QUE FORAM ALTERADAS
@@ -134,7 +144,6 @@ class Editar extends Controller {
     }
 
     // EXIBIÇÃO DO LAYOUT
-    $this->setPathView('paginas/tarefas/cadastro');
     $this->setDadosExibicaoLayout($obTarefaDTO);
 
     return $this;

@@ -1,0 +1,157 @@
+/* Cabeçalho */
+html, body {
+ background-color: white;
+}
+
+header {
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 0 0 18px 18px;
+}
+footer {
+  border-radius: 18px 18px 0 0;
+}
+
+header, 
+footer {
+  height: 18vh;
+}
+
+.alert {
+  margin-bottom: 20px;
+}
+
+.container_header {
+  background-color: #FF914D;
+  height: 15vh;
+}
+
+/* Conteúdo */
+.container_main {
+  background-color: white;
+  height: 115vh;
+  display: flex;
+  justify-content: center;
+}
+@media (max-width: 767px) {
+  .container_main {
+    height: 132vh;
+  }
+}
+
+.btn-close {
+  display: flex;
+  justify-content: end;
+}
+.btn-close > a {
+  display: flex;
+  margin-top: 3px;
+  margin-right: 3px;
+}
+.btn-close > a > img {
+  width: 30px;
+}
+
+.container_article {
+  position: absolute;
+  top: 5%;
+  width: 83vw;
+  min-height: 90vh;
+  border: 5px solid #D9D9D9;
+  border-radius: 10px;
+}
+.container_article,
+.container_article :nth-child(n) {
+  background-color: white;
+}
+.container_article > .conteudo {
+  margin: 60px 0;
+  height: calc(100% - 120px);
+  padding: 0 15px;
+}
+.container_form :nth-child(n) {
+  font-size: 14px;
+}
+.conteudo > .titulo-formulario {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.box-input,
+.box-input > :nth-child(n) {
+  display: block;
+  width: 100%;
+}
+.box-input:not(:last-child) {
+  margin-bottom: 20px;
+}
+.box-input > label {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.box-input > input[type="text"],
+.box-input > input[type="date"],
+.box-input > textarea[name="descricao"] {
+  border: 1px solid #dfdfdf;
+  padding: 10px;
+  width: calc(100% - 22px);
+  border-radius: 5px;
+}
+.box-input > input[type="text"]:focus-visible,
+.box-input > input[type="date"]:focus-visible,
+.box-input > textarea[name="descricao"]:focus-visible {
+  outline: none;
+  border-color: var(--cor-primaria);
+}
+.box-input > .box-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.box-input > .box-options > .option {
+  background-color: #e3e3e3;
+  color: white;
+  font-weight: bold;
+  padding: 10px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid gray;
+  flex: 1 1 auto;
+  text-align: center;
+}
+.box-input > .box-options > .option:not(:last-child) {
+  margin-right: 5px;
+}
+.box-input > .box-options > .option.option-baixa {
+  background-color: #FFC24D;
+  border-color: #FFC24D;
+}
+.box-input > .box-options > .option.option-media {
+  background-color: #FF914D;
+  border: #FF914D;
+}
+.box-input > .box-options > .option.option-alta {
+  background-color: #B74C26;
+  border-color: #B74C26;
+}
+.box-input > .box-options > .option.option-sucesso {
+  background-color: var(--cor-sucesso);
+  border-color: var(--cor-sucesso);
+}
+.box-input > .box-options > .option.option-erro {
+  background-color: var(--cor-erro);
+  border-color: var(--cor-erro);
+}
+.box-input > .box-options > .option.checked {
+  box-shadow: 3px 3px #62626294;
+}
+.conteudo form button[type="submit"] {
+  width: 100%;
+  padding: 20px 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  background-color: var(--cor-primaria);
+  border-radius: 10px;
+  cursor: pointer;
+}

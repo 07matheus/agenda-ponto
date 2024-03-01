@@ -1,82 +1,127 @@
 {% extends 'app.twig.html' %}
 
+{% block header %}{% endblock %}
 {% block titlePage %} {{tituloPagina}} {% endblock %}
 
 {% block body %}
-  {{ response }}
-
-  <h1>{{ tituloFormulario }}</h1>
-
-  <form action="/tarefas/{{tipoFormulario}}" method="post">
-    {% if tipoFormulario == 'editar' %}
-      <input type="number" name="id" value="{{id}}" hidden>
-    {% endif %}
-
-    <div>
-      <label for="nome">Nome da tarefa</label>
-      <input type="text" name="nome" id="nome" value="{{ nome }}">
-    </div>
-
-    <br>
-    <br>
-
-    <div>
-      <label for="dataVencimento">Data de vencimento</label>
-      <input type="date" name="dataVencimento" id="dataVencimento" value="{{ dataVencimento }}">
-    </div>
-
-    <br>
-    <br>
-
-    <div>
-      <label>Prioridade</label>
-      
-      <div>
-        <label for="prioridadeBaixa">Baixa</label>
-        <input type="radio" name="prioridade" value="baixa" id="prioridadeBaixa" {{ checkedPrioridadeBaixa }}>
+  
+  <main class="container_main">
+    <article class="container_article">
+      <div class="btn-close">
+        <a href="/dashboard">
+          <img src="{{pathResourcesImg}}/geral/fechar.png" id="img_btn_fechar" />
+        </a>
       </div>
+      <div class="conteudo">
+        <h2 class="titulo-formulario">{{ tituloFormulario }}</h2>
 
-      <div>
-        <label for="prioridadeMedia">Média</label>
-        <input type="radio" name="prioridade" value="media" id="prioridadeMedia" {{ checkedPrioridadeMedia }}>
+        <section class="container_form">
+          <form action="/tarefas/{{tipoFormulario}}" method="post">
+            {% if response|length > 0 %}
+              {% if status %}
+                <p class="alert sucesso">{{response}}</p>
+              {% else %}
+                <p class="alert erro">{{response}}</p>
+              {% endif %}
+            {% endif %}
+
+            {% if tipoFormulario == 'editar' %}
+              <input type="number" name="id" value="{{id}}" hidden>
+            {% endif %}
+            
+            <div class="box-input">
+              <label for="nome">Nome da tarefa</label>
+              <input type="text" name="nome" id="nome" value="{{nome}}" placeholder="Título">
+            </div>
+
+            <div class="box-input">
+              <label for="dataVencimento">Data de vencimento</label>
+              <input type="date" name="dataVencimento" id="dataVencimento" value="{{dataVencimento}}" placeholder="Dia / Mês / Ano">
+            </div>
+
+            <div class="box-input">
+              <label >Prioridade</label>
+
+              <div class="box-options">
+                <label class="option option-baixa" for="prioridadeBaixa">
+                  Baixa
+                  <input 
+                    type="radio" 
+                    name="prioridade" 
+                    value="baixa"
+                    id="prioridadeBaixa"
+                    hidden
+                    {{ checkedPrioridadeBaixa }}
+                  >
+                </label>
+
+                <label class="option option-media" for="prioridadeMedia">
+                  Média
+                  <input 
+                    type="radio" 
+                    name="prioridade" 
+                    value="media"
+                    id="prioridadeMedia"
+                    hidden
+                    {{ checkedPrioridadeMedia }}
+                  >
+                </label>
+
+                <label class="option option-alta" for="prioridadeAlta">
+                  Alta
+                  <input 
+                    type="radio" 
+                    name="prioridade" 
+                    value="alta"
+                    id="prioridadeAlta"
+                    hidden
+                    {{ checkedPrioridadeAlta }}
+                  >
+                </label>
+              </div>
+            </div>
+
+            <div class="box-input">
+              <label>Data de vencimento</label>
+              <textarea name="descricao" cols="30" rows="10">{{descricao}}</textarea>
+            </div>
+
+            {% if isAtualizacao %}
+              <div class="box-input">
+                <label >Concluir tarefa</label>
+
+                <div class="box-options">
+                  <label class="option option-sucesso" for="concluirTarefa">
+                    Sim
+                    <input 
+                      type="radio" 
+                      name="concluida" 
+                      value="s"
+                      id="concluirTarefa"
+                      hidden
+                      {{ checkedConcluida }}
+                    >
+                  </label>
+
+                  <label class="option option-erro" for="naoConcluirTarefa">
+                    Não
+                    <input 
+                      type="radio" 
+                      name="concluida" 
+                      value="n"
+                      id="naoConcluirTarefa"
+                      hidden
+                      {{ checkedNaoConcluida }}
+                    >
+                  </label>
+                </div>
+              </div>
+            {% endif %}
+
+            <button type="submit">{{ nomeBotaoFormulario }}</button>
+          </form>
+      </section>
       </div>
-
-      <div>
-        <label for="prioridadeAlta">Alta</label>
-        <input type="radio" name="prioridade" value="alta" id="prioridadeAlta" {{ checkedPrioridadeAlta }}>
-      </div>
-    </div>
-
-    <br>
-    <br>
-
-    <div>
-      <label for="descricao">Descrição</label>
-      <textarea name="descricao" id="descricao" cols="30" rows="10">{{ descricao }}</textarea>
-    </div>
-
-    <br>
-    <br>
-
-    {% if isAtualizacao %}
-      <div>
-        <label>Concluir tarefa</label>
-        
-        <div>
-          <label for="concluirSim">Sim</label>
-          <input type="radio" name="concluir" value="s" id="concluirSim" {{ checkedConcluida }}>
-        </div>
-
-        <div>
-          <label for="concluirNao">Não</label>
-          <input type="radio" name="concluir" value="n" id="concluirNao" {{ checkedNaoConcluida }}>
-        </div>
-      </div>
-
-      <br>
-      <br>
-    {% endif %}
-
-    <button type="submit">{{ nomeBotaoFormulario }}</button>
-  </form>
+    </article>
+  </main>
 {% endblock %}
