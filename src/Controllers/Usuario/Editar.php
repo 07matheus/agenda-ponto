@@ -40,8 +40,17 @@ class Editar extends Controller {
     }
   }
 
+  private function defineResourcesLayout(): void {
+    $this->setPathView('paginas/usuario/editar');
+    $this->getResourcesFilesCompiled('css', 'geral');
+    $this->getResourcesFilesCompiled('js', 'geral');
+    $this->getResourcesFilesCompiled('css', 'editar-tarefa');
+    $this->getResourcesFilesCompiled('css', 'editar-usuario');
+    $this->getResourcesFilesCompiled('js', 'editar-usuario');
+  }
+
   public function view(): Editar {
-    $this->setPathView('paginas/usuario/cadastro');
+    $this->defineResourcesLayout();
 
     $usuario   = (new Session)->get(['usuario']);
     $idUsuario = $usuario['id'] ?? null;
@@ -60,13 +69,15 @@ class Editar extends Controller {
 
   public function update($obUsuarioDTO): Editar {
     // DADOS DE EXIBIÇÃO DA PÁGINA
-    $this->setPathView('paginas/usuario/cadastro');
+    $this->defineResourcesLayout();
     $this->dataOthers = [
       'local'                  => 'editar',
       'tituloEspecificoPagina' => 'Editar'
     ];
 
     // VERIFICA SE O USUÁRIO ESTÁ LOGADO
+    $obSessao = new Session;
+    $usuario  = $obSessao->get(['usuario']);
     if(!(isset($usuario['id']) && is_numeric($usuario['id']))) {
       throw new HttpNotFoundException(
         $this->getSlimRequest(),
@@ -74,18 +85,14 @@ class Editar extends Controller {
       );
     }
 
-    // PEGA OS DADOS DO USUÁRIO NA SESSÃO
-    $obSessao = new Session;
-    $usuario  = $obSessao->get(['usuario']);
-
     // VALIDAÇÕES DOS CAMPOS ENVIADOS PELO USUÁRIO
-    $this->validarTamanhoCampo('email', $obUsuarioDTO->email);
-    $this->validarTamanhoCampo('nome', $obUsuarioDTO->nome);
+    $this->validarTamanhoCampo('email', $obUsuarioDTO->email ?? '');
+    $this->validarTamanhoCampo('nome', $obUsuarioDTO->nome ?? '');
 
     // VERIFICA SE IRÁ VALIDAR A SENHA
     $alterarSenha = $obUsuarioDTO->alterarSenha == 's';
     if($alterarSenha) {
-      $this->validarTamanhoCampo('senha', $obUsuarioDTO->senha);
+      $this->validarTamanhoCampo('senha', $obUsuarioDTO->senha ?? '');
       $obUsuarioDTO->set('senha', md5($obUsuarioDTO->senha));
     }
 

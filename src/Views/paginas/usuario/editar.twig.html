@@ -1,0 +1,83 @@
+{% extends 'app.twig.html' %}
+
+{% block header %}{% endblock %}
+{% block titlePage %}Editar perfil{% endblock %}
+
+{% block body %}
+  <main class="container_main">
+    <article class="container_article">
+      <div class="btn-close">
+        <a href="/dashboard">
+          <img src="{{pathResourcesImg}}/geral/fechar.png" id="img_btn_fechar" />
+        </a>
+      </div>
+      <div class="conteudo">
+        <h2 class="titulo-formulario">Meus dados pessoais</h2>
+
+        <section class="container_form">
+          <form action="/usuario/editar" method="post">
+            {% if response|length > 0 %}
+              {% if status %}
+                <p class="alert sucesso">{{response}}</p>
+              {% else %}
+                <p class="alert erro">{{response}}</p>
+              {% endif %}
+            {% endif %}
+
+            {% if tipoFormulario == 'editar' %}
+              <input type="number" name="id" value="{{id}}" hidden>
+            {% endif %}
+            
+            <div class="box-input">
+              <label for="nome">Nome de usuário</label>
+              <input type="text" name="nome" id="nome" value="{{nome}}" placeholder="Nome de usuário">
+            </div>
+
+            <div class="box-input">
+              <label for="email">Editar e-mail</label>
+              <input type="email" name="email" id="email" value="{{email}}" placeholder="email@email.com">
+            </div>
+
+            {% if local == 'editar' %}
+              <div class="box-input">
+                <label >Alterar senha</label>
+
+                <div class="box-options">
+                  <label class="option option-sucesso" for="alterarSenha">
+                    Sim
+                    <input 
+                      type="radio" 
+                      name="alterarSenha"
+                      value="s"
+                      id="alterarSenha"
+                      hidden
+                    >
+                  </label>
+
+                  <label class="option option-erro" for="naoAlterarSenha">
+                    Não
+                    <input 
+                      type="radio" 
+                      name="alterarSenha" 
+                      value="n"
+                      id="naoAlterarSenha"
+                      hidden
+                      checked
+                    >
+                  </label>
+                </div>
+              </div>
+            {% endif %}
+
+            <div class="box-input hide" data-mostrar-senha>
+              <label for="senha">Nova senha</label>
+              <input type="password" name="senha" id="senha">
+            </div>
+
+            <button type="submit">Salvar</button>
+          </form>
+        </section>
+      </div>
+    </article>
+  </main>
+{% endblock %}
