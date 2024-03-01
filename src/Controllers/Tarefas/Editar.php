@@ -56,13 +56,19 @@ class Editar extends Controller {
     $this->getResourcesFilesCompiled('css', 'editar-tarefa');
     $this->getResourcesFilesCompiled('js', 'editar-tarefa');
     $idTarefa = $obTarefaDTO->id;
+
+
+    $alerta = (new Session)->get(['alerta', 'editar-tarefa']);
+    (new Session)->cleanSession(['alerta', 'editar-tarefa']);
     
     $this->dataOthers = array_merge([
       'isAtualizacao'       => true,
       'tituloFormulario'    => 'Editar tarefa',
       'tituloPagina'        => 'Edição',
       'nomeBotaoFormulario' => 'Salvar',
-      'tipoFormulario'      => 'ver/' . $idTarefa
+      'tipoFormulario'      => 'ver/' . $idTarefa,
+      'statusAlerta'        => $alerta['sucesso'] ?? null,
+      'mensagemAlerta'      => $alerta['mensagem'] ?? null
     ], $obTarefaDTO->toArray(true, true));
 
     // SELETORES
@@ -143,9 +149,13 @@ class Editar extends Controller {
       $this->response = $sucesso ? 'Tarefa atualizada com sucesso!': 'Não foi possível atualizar a terefa. Tente novamente mais tarde.';
     }
 
-    // EXIBIÇÃO DO LAYOUT
-    $this->setDadosExibicaoLayout($obTarefaDTO);
+    // GUARDA AS INFORMAÇÕES DE VALIDAÇÃO NA SESSÃO
+    (new Session)->set(['alerta', 'editar-tarefa'], [
+      'sucesso'  => $this->status,
+      'mensagem' => $this->response,
+    ]);
 
-    return $this;
+    header('Location: /tarefas/ver/' . $obTarefaDTO->id);
+    exit;
   }
 }

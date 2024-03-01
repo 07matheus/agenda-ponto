@@ -30,13 +30,13 @@ footer {
 /* Conteúdo */
 .container_main {
   background-color: white;
-  height: calc(100vh - 36vh);
+  height: calc(100vh - 29vh);
   display: flex;
   justify-content: center;
 }
 @media (max-width: 767px) {
   .container_main {
-    height: calc(100vh - 20vh);
+    height: calc(100vh - 12vh);
   }
 }
 

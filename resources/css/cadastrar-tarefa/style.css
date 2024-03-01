@@ -1,8 +1,5 @@
-body > main.container_main {
-  height: 100vh
-}
 @media (max-width: 767px) {
   body > main.container_main {
-    height: 66vh;
+    height: calc(100vh - 28vh);
   }
 }

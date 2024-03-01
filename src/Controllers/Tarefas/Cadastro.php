@@ -47,19 +47,25 @@ class Cadastro extends Controller {
     $this->getResourcesFilesCompiled('css', 'geral');
     $this->getResourcesFilesCompiled('js', 'geral');
     $this->getResourcesFilesCompiled('js', 'editar-tarefa');
+    $this->getResourcesFilesCompiled('css', 'editar-tarefa');
+    $this->getResourcesFilesCompiled('css', 'cadastrar-tarefa');
+
+    $alerta = (new Session)->get(['alerta', 'cadastro-tarefa']);
+    (new Session)->cleanSession(['alerta', 'cadastro-tarefa']);
 
     $this->dataOthers = [
       'isAtualizacao'       => false,
       'tituloFormulario'    => 'Cadastrar tarefa',
       'tituloPagina'        => 'Cadastro',
       'nomeBotaoFormulario' => 'Criar',
-      'tipoFormulario'      => 'cadastrar'
+      'tipoFormulario'      => 'cadastrar',
+      'statusAlerta'        => $alerta['sucesso'] ?? null,
+      'mensagemAlerta'      => $alerta['mensagem'] ?? null
     ];
   }
 
   public function view(): Cadastro {
     $this->setDefinicoesDeLayout();
-    $this->getResourcesFilesCompiled('css', 'editar-tarefa');
 
     return $this;
   }
@@ -67,7 +73,6 @@ class Cadastro extends Controller {
   public function save($obTarefaDTO): Cadastro {
     // VALIDAÇÃO DOS DADOS ENVIADOS
     $this->validarDadosFormulario($obTarefaDTO);
-    $this->getResourcesFilesCompiled('css', 'cadastrar-tarefa');
 
     // REALIZA O CADASTRO DA TAREFA
     $usuario = (new Session)->get(['usuario']);
@@ -91,9 +96,13 @@ class Cadastro extends Controller {
       $this->response  = $sucesso ? $mensagemSucesso: $mensagemErro;
     }
 
-    // DEFINIÇÕES DO LAYOUT
-    $this->setDefinicoesDeLayout();
+    // GUARDA AS INFORMAÇÕES DE VALIDAÇÃO NA SESSÃO
+    (new Session)->set(['alerta', 'cadastro-tarefa'], [
+      'sucesso'  => $this->status,
+      'mensagem' => $this->response,
+    ]);
 
-    return $this;
+    header('Location: /tarefas/cadastrar');
+    exit;
   }
 }
