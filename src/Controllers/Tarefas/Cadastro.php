@@ -46,8 +46,6 @@ class Cadastro extends Controller {
     $this->setPathView('paginas/tarefas/cadastro');
     $this->getResourcesFilesCompiled('css', 'geral');
     $this->getResourcesFilesCompiled('js', 'geral');
-    $this->getResourcesFilesCompiled('css', 'editar-tarefa');
-    $this->getResourcesFilesCompiled('css', 'cadastrar-tarefa');
     $this->getResourcesFilesCompiled('js', 'editar-tarefa');
 
     $this->dataOthers = [
@@ -61,6 +59,7 @@ class Cadastro extends Controller {
 
   public function view(): Cadastro {
     $this->setDefinicoesDeLayout();
+    $this->getResourcesFilesCompiled('css', 'editar-tarefa');
 
     return $this;
   }
@@ -68,6 +67,7 @@ class Cadastro extends Controller {
   public function save($obTarefaDTO): Cadastro {
     // VALIDAÇÃO DOS DADOS ENVIADOS
     $this->validarDadosFormulario($obTarefaDTO);
+    $this->getResourcesFilesCompiled('css', 'cadastrar-tarefa');
 
     // REALIZA O CADASTRO DA TAREFA
     $usuario = (new Session)->get(['usuario']);
