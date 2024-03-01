@@ -30,13 +30,13 @@ footer {
 /* Conteúdo */
 .container_main {
   background-color: white;
-  height: 88vh;
+  height: 90vh;
   display: flex;
   justify-content: center;
 }
 @media (max-width: 767px) {
   .container_main {
-    height: 132vh;
+    height: 76vh;
   }
 }
 
@@ -56,10 +56,16 @@ footer {
 .container_article {
   position: absolute;
   top: 5%;
-  width: 83vw;
+  width: calc(50vw - 40px);
+  padding: 0 20px;
   min-height: 90vh;
   border: 5px solid #D9D9D9;
   border-radius: 10px;
+}
+@media (max-width: 767px) {
+  .container_article {
+    width: 80vw;
+  }
 }
 .container_article,
 .container_article :nth-child(n) {
