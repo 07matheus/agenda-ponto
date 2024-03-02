@@ -4,7 +4,6 @@ namespace AgendaPonto\Controllers\Usuario;
 
 use AgendaPonto\Configs\Session;
 use AgendaPonto\Controllers\Controller;
-use AgendaPonto\Models\DTOs\UsuarioDTO;
 use AgendaPonto\Models\Model\Usuario;
 use Slim\Exception\HttpNotFoundException;
 
@@ -61,20 +60,22 @@ class Editar extends Controller {
       );
     }
 
-    $this->dataOthers          = $usuario;
-    $this->dataOthers['local'] = 'editar';
+    $this->dataOthers                           = $usuario;
+    $this->dataOthers['local']                  = 'editar';
+    $this->dataOthers['local']                  = 'editar';
+    $this->dataOthers['tituloEspecificoPagina'] = 'Editar';
+
+    // EXIBE O ALERTA
+    $alerta = (new Session)->get(['alerta', 'editar-usuario']);
+    (new Session)->cleanSession(['alerta', 'editar-usuario']);
+
+    $this->dataOthers['statusAlerta']   = $alerta['sucesso'] ?? null;
+    $this->dataOthers['mensagemAlerta'] = $alerta['mensagem'] ?? null;
 
     return $this;
   }
 
   public function update($obUsuarioDTO): Editar {
-    // DADOS DE EXIBIÇÃO DA PÁGINA
-    $this->defineResourcesLayout();
-    $this->dataOthers = [
-      'local'                  => 'editar',
-      'tituloEspecificoPagina' => 'Editar'
-    ];
-
     // VERIFICA SE O USUÁRIO ESTÁ LOGADO
     $obSessao = new Session;
     $usuario  = $obSessao->get(['usuario']);
@@ -99,12 +100,12 @@ class Editar extends Controller {
     // REALIZA A ATUALIZAÇÃO DOS DADOS DO USUÁRIO
     if($this->status) {
       $dadosAtualizar = [
-        'email' => $obUsuarioDTO->email,
-        'nome'  => $obUsuarioDTO->nome
+        'email' => "'$obUsuarioDTO->email'",
+        'nome'  => "'$obUsuarioDTO->nome'"
       ];
 
       if($alterarSenha) $dadosAtualizar['senha'] = $obUsuarioDTO->senha;
-      
+
       // SALVA OS DADOS
       $sucesso         = (Usuario::where('id', $usuario['id'])->update($dadosAtualizar) > 0);
       $mensagemSucesso = 'Dados alterados com sucesso!';
@@ -122,6 +123,13 @@ class Editar extends Controller {
       ]);
     }
 
-    return $this;
+    // GUARDA AS INFORMAÇÕES DE VALIDAÇÃO NA SESSÃO
+    (new Session)->set(['alerta', 'editar-usuario'], [
+      'sucesso'  => $this->status,
+      'mensagem' => $this->response,
+    ]);
+
+    header('Location: /usuario/editar');
+    exit;
   }
 }

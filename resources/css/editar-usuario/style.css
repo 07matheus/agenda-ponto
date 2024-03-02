@@ -14,8 +14,8 @@ body,
   height: 68vh;
 }
 @media (max-width: 767px) {
-  .container_main {
-    height: 90vh;
+  body .container_article {
+    min-height: 0;
   }
 }
 .box-input > input[type="email"],
