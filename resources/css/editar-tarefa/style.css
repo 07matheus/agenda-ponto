@@ -30,13 +30,13 @@ footer {
 /* Conteúdo */
 .container_main {
   background-color: white;
-  height: calc(100vh - 29vh);
+  height: 125vh;
   display: flex;
   justify-content: center;
 }
 @media (max-width: 767px) {
   .container_main {
-    height: calc(100vh - 12vh);
+    height: 115vh;
   }
 }
 
@@ -55,7 +55,7 @@ footer {
 
 .container_article {
   position: absolute;
-  top: 5%;
+  top: 10vh;
   width: calc(50vw - 40px);
   padding: 0 20px;
   min-height: 90vh;
@@ -65,6 +65,7 @@ footer {
 @media (max-width: 767px) {
   .container_article {
     width: 80vw;
+    top: 5vh;
   }
 }
 .container_article,
