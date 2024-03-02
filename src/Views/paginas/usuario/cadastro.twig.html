@@ -7,12 +7,14 @@
     <article>
       <form action="/usuario/{{local}}" method="POST">
         <fieldset>
-          {% if response|length > 0 %}
-            {% if status %}
-              <p class="alert sucesso">{{response}}</p>
+          {% if mensagemAlerta|length > 0 %}
+            {% if statusAlerta == true %}
+              <p class="alert sucesso">
             {% else %}
-              <p class="alert erro">{{response}}</p>
+              <p class="alert erro">
             {% endif %}
+              {{mensagemAlerta}}
+            </p>
           {% endif %}
 
           <div class="box-input">

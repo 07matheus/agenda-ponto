@@ -36,7 +36,7 @@ header {
 article {
   background-color: white;
   border-radius: 13px 13px 0 0;
-  height: calc(100% - 30%);
+  height: calc(100vh - 25vh);
 }
 
 form {
@@ -116,4 +116,7 @@ legend {
   background-color: white;
   color: var(--cor-primaria);
   text-decoration: none;
+}
+.alert {
+  margin-bottom: 10px;
 }

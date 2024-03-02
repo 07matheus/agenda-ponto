@@ -2,6 +2,7 @@
 
 namespace AgendaPonto\Controllers\Usuario;
 
+use AgendaPonto\Configs\Session;
 use AgendaPonto\Controllers\Controller;
 use AgendaPonto\Models\DTOs\UsuarioDTO;
 use AgendaPonto\Models\Model\Usuario;
@@ -52,12 +53,6 @@ class Cadastro extends Controller {
    * @return Cadastro
    */
   public function save($obUsuarioDTO): Cadastro {
-    $this->setPathView('paginas/usuario/cadastro');
-    $this->getResourcesFilesCompiled('css', 'geral');
-    $this->getResourcesFilesCompiled('js', 'geral');
-    $this->getResourcesFilesCompiled('css', 'cadastro');
-    $this->getResourcesFilesCompiled('css', 'confirmacao');
-    
     $this->validarDadosFormulario($obUsuarioDTO);
 
     // ADICIONA CRIPTOGRAFIA
@@ -88,12 +83,16 @@ class Cadastro extends Controller {
       }
     }
 
-    $this->dataOthers = array_merge([
-      'local'                  => 'cadastro',
-      'tituloEspecificoPagina' => 'Cadastro'
-    ], $obUsuarioDTO->toArray());
+    // GUARDA AS INFORMAÇÕES DE VALIDAÇÃO NA SESSÃO
+    $obSessao = new Session;
+    $obSessao->set(['alerta', 'cadastro-usuario'], [
+      'sucesso'  => $this->status,
+      'mensagem' => $this->response,
+    ]);
+    $obSessao->set(['cadastro', 'usuario'], $obUsuarioDTO->toArray());
 
-    return $this;
+    header('Location: /usuario/cadastro');
+    exit;
   }
 
   /**
@@ -106,10 +105,21 @@ class Cadastro extends Controller {
     $this->getResourcesFilesCompiled('js', 'geral');
     $this->getResourcesFilesCompiled('css', 'cadastro');
 
+    $alerta = (new Session)->get(['alerta', 'cadastro-usuario']);
+    (new Session)->cleanSession(['alerta', 'cadastro-usuario']);
+
+    $usuario = (new Session)->get(['cadastro', 'usuario']);
+    (new Session)->cleanSession(['cadastro', 'usuario']);
+
     $this->dataOthers = [
       'local'                  => 'cadastro',
-      'tituloEspecificoPagina' => 'Cadastro'
+      'tituloEspecificoPagina' => 'Cadastro',
+      'statusAlerta'           => $alerta['sucesso'] ?? null,
+      'mensagemAlerta'         => $alerta['mensagem'] ?? null,
+      'nome'                   => $usuario['sucesso'] ?? null,
+      'email'                  => $usuario['sucesso'] ?? null
     ];
+
     return $this;
   }
 }
