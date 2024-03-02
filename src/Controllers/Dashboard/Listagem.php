@@ -28,7 +28,7 @@ class Listagem extends Controller {
 
     // BUSCA AS TAREFAS DE UM USUÁRIO
     $tarefas = Tarefa::where(
-      'id_usuario', '=', (int) $usuarioSessao['id']
+      'id_usuario', '=', (int) ($usuarioSessao['id'] ?? 0)
     )->get();
 
     // PREPARA OS DADOS DO LAYOUT
@@ -47,7 +47,7 @@ class Listagem extends Controller {
     }
 
     $this->dataOthers = [
-      'nomeUsuario'    => $usuarioSessao['nome'],
+      'nomeUsuario'    => $usuarioSessao['nome'] ?? null,
       'dadosTarefas'   => $dadosTarefas,
       'dataAtual'      => (new DateTime('now'))->format('d/m/Y'),
       'horarioAtual'   => (new DateTime('now'))->format('h:m:s'),
